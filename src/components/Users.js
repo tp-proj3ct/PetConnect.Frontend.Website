@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import { API_ENDPOINTS } from "../constants/constants";
+import axios from "../api/axios";
 
 const Users = () => {
     const [users, setUsers] = useState();
@@ -14,14 +16,13 @@ const Users = () => {
 
         const getUsers = async () => {
             try {
-                const response = await axiosPrivate.get('/users', {
+                const response = await axiosPrivate.get(API_ENDPOINTS.ADMIN_GETUSERS, {
                     signal: controller.signal
                 });
-                console.log(response.data);
                 isMounted && setUsers(response.data);
             } catch (err) {
                 console.error(err);
-                navigate('/login', { state: { from: location }, replace: true });
+                // navigate('/auth/login', { state: { from: location }, replace: true });
             }
         }
 
@@ -39,7 +40,7 @@ const Users = () => {
             {users?.length
                 ? (
                     <ul>
-                        {users.map((user, i) => <li key={i}>{user?.username}</li>)}
+                        {users.map((user) => <li key={user.id}>{user?.login}</li>)}
                     </ul>
                 ) : <p>No users to display</p>
             }

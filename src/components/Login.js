@@ -1,9 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "../api/axios";
-
-const LOGIN_URL = '/auth/login';
+import axios, { axiosPrivate } from "../api/axios";
+import { API_ENDPOINTS } from "../constants/constants";
 
 const Login = () => {
     const { setAuth } = useAuth();
@@ -33,7 +32,7 @@ const Login = () => {
             const payload = { login, password };
             console.log('Sending payload:', payload);
 
-            const response = await axios.post(LOGIN_URL, 
+            const response = await axios.post(API_ENDPOINTS.LOGIN_URL, 
                 JSON.stringify(payload),
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -43,7 +42,7 @@ const Login = () => {
             console.log('Response:', response.data);
 
             const accessToken = response.data?.accessToken;
-            setAuth({ login, password, accessToken });
+            setAuth({ login, password, accessToken});
             setLogin('');
             setPassword('');
             navigate(from, { replace: true });
