@@ -41,7 +41,7 @@ const Login = () => {
             );
             console.log('Response:', response.data);
 
-            const accessToken = response.data?.accessToken;
+            const accessToken = response.data?.value;
             setAuth({ login, password, accessToken});
             setLogin('');
             setPassword('');
