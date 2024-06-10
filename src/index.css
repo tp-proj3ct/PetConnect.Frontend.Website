@@ -61,6 +61,8 @@ input[type="text"],
 input[type="password"],
 input[type="email"],
 input[type="role"],
+input[type="name"],
+input[type="surname"],
 button,
 textarea {
     font-family: 'Nunito', sans-serif;

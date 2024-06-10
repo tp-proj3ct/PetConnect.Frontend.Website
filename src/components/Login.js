@@ -32,13 +32,12 @@ const Login = () => {
             const payload = { login, password };
             console.log('Sending payload:', payload);
 
-            const response = await axios.post(API_ENDPOINTS.LOGIN_URL, 
+            const response = await axiosPrivate.post(API_ENDPOINTS.LOGIN_URL, 
                 JSON.stringify(payload),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
-                }
-            );
+                });
             console.log('Response:', response.data);
 
             const accessToken = response.data?.value;

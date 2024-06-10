@@ -3,7 +3,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 // import RequireAuth from './components/RequireAuth';
 // import Layout from './components/Layout';
-import { Routes, Route } from 'react-router-dom';
+import { Router, Routes, Route, Link } from 'react-router-dom';
 import Missing from './components/Missing';
 import LinkPage from './components/LinkPage';
 import Unauthorized from './components/Unauthorized';
@@ -11,15 +11,18 @@ import Admin from './components/Admin';
 import Sitters from './components/Sitters';
 import Profile from './components/Profile';
 
-const ROLES = {
-  PetSitter : 'PetSitter',
-  PetOwner : 'PetOwner',
-  Admin : 'Admin'
-}
 
 function App() {
 
   return (
+    <div>
+    <header>
+      <nav>
+        <Link to="/registration">Регистрация</Link>
+        <Link to="/login">Вход</Link>
+      </nav>
+    </header>
+
     <Routes>
       <Route path='/' element={<Home />} />
        {/* public routes */}
@@ -46,6 +49,7 @@ function App() {
       {/* catch all */}
       <Route path="*" element={<Missing />} />
     </Routes>
+    </div>
   )
 }
 

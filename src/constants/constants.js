@@ -12,5 +12,9 @@ export const API_ENDPOINTS = {
     ADMIN_GETUSERS: `${BASE_URL}/admin/users`,
 
     //PROFILE
+    USER_URL: `${BASE_URL}/user`,
     PROFILE_URL: `${BASE_URL}/user/profile`,
+
+    //PETS
+    PETS_URL: `${BASE_URL}/pets`,
 };
