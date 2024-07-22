@@ -1,17 +1,16 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
+//TODO: create css file for missing page
 const Missing = () => {
-    
+  return (
+    <article style={{ padding: "100px" }}>
+      <h1>Oops!</h1>
+      <p>Page Not Found</p>
+      <div className="flexGrow">
+        <Link to="/">Visit Our Homepage</Link>
+      </div>
+    </article>
+  );
+};
 
-    return (
-        <article style={{ padding: "100px" }}>
-            <h1>Oops!</h1>
-            <p>Page Not Found</p>
-            <div className="flexGrow">
-                <Link to="/">Visit Our Homepage</Link>
-            </div>
-        </article>
-    )
-}
-
-export default Missing
+export default Missing;

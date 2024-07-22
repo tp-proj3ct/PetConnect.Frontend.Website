@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
 * {
     margin: 0;
@@ -38,11 +38,11 @@ section {
   min-height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Центрирование по вертикали */
-  align-items: center; /* Центрирование по горизонтали */
+  justify-content: center; 
+  align-items: center; 
   padding: 1rem;
   background-color: rgba(0,0,0,0.4);
-  text-align: center; /* Центрирование текста внутри элементов */
+  text-align: center; 
 }
 
 form {
@@ -112,7 +112,6 @@ li {
 .instructions > svg {
     margin-right: 0.25rem;
 }
-
 .offscreen {
     position: absolute;
     left: -9999px;
@@ -150,8 +149,7 @@ li {
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
-}
-
+} */
 
 /* @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
