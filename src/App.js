@@ -9,7 +9,8 @@ import LinkPage from "./components/LinkPage";
 import Unauthorized from "./components/Unauthorized";
 import Admin from "./components/Admin";
 import Sitters from "./components/Sitters";
-import Profile from "./components/Profile";
+import ProfileForPetSitter from "./components/Profiles/ProfileForPetSitter";
+import ProfileForPetOwner from "./components/Profiles/ProfileForPetOwner";
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
         <Route path="linkpage" element={<LinkPage />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="sitters" element={<Sitters />} />
-        <Route path="profile" element={<Profile />} />
+        <Route path="profile" element={<ProfileForPetSitter />} />
 
         {/* we want to protect these routes */}
 

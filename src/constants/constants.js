@@ -17,4 +17,7 @@ export const API_ENDPOINTS = {
 
   //PETS
   PETS_URL: `${BASE_URL}/pets`,
+
+  //SERVICES
+  SERVICE_URL: `${BASE_URL}/services`,
 };

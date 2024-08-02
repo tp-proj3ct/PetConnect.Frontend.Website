@@ -3,6 +3,7 @@ import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios, { axiosPrivate } from "../api/axios";
 import { API_ENDPOINTS } from "../constants/constants";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -43,10 +44,21 @@ const Login = () => {
       console.log("Response:", response.data);
 
       const accessToken = response.data?.value;
+      const [header, pload, signature] = accessToken.split(".");
+      const decodedPload = atob(pload);
+      const parsedPload = JSON.parse(decodedPload);
+
+      // Извлечение роли пользователя
+      const userRole =
+        parsedPload[
+          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        ];
+
+      console.log("Role: ", userRole);
       setAuth({ login, password, accessToken });
       setLogin("");
       setPassword("");
-      navigate(from, { replace: true });
+      //navigate(from, { replace: true });
     } catch (error) {
       console.error("Error response:", error.response);
       if (!error.response) {

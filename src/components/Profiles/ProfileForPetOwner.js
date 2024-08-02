@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { API_ENDPOINTS } from "../constants/constants";
-import useAuth from "../hooks/useAuth";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { API_ENDPOINTS } from "../../constants/constants";
+import useAuth from "../../hooks/useAuth";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 
 //TODO: PetOwner/PetSitter profile pages(Now only PetOwner), create css for profile page, Add profile picture
@@ -76,18 +76,6 @@ const Profile = () => {
           pet.id === selectedPet.id ? { ...pet, ...payload } : pet
         )
       );
-      //   setPetInfo((prev) => ({
-      //     ...prev,
-      //     name: payload.petName,
-      //     age: payload.petAge,
-      //     weight: payload.petWeight,
-      //     gender: payload.petGender,
-      //     behavior: payload.petBehavior,
-      //     type: payload.petType,
-      //     breed: payload.petBreed,
-      //     description: payload.petDescription,
-      //     medicalInfo: payload.petMedicalInfo,
-      //   }));
 
       setSelectedPet(null);
 
