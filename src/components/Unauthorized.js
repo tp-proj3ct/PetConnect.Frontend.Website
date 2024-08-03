@@ -1,9 +1,16 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Unauthorized = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const goBack = () => navigate(-1);
+  const goBack = () => {
+    if (location.state && location.state.from) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
 
   return (
     <section>

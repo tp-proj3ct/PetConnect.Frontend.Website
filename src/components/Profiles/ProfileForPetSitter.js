@@ -60,8 +60,8 @@ const Profile = () => {
     }
   };
 
+  //EDIT SERVICE
   const handleEditService = async (e) => {
-    //EDIT SERVICE
     e.preventDefault();
 
     if (!selectedService) {
