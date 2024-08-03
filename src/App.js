@@ -3,14 +3,14 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 // import RequireAuth from './components/RequireAuth';
 // import Layout from './components/Layout';
-import { Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 import Missing from "./components/Missing";
 import LinkPage from "./components/LinkPage";
 import Unauthorized from "./components/Unauthorized";
-import Admin from "./components/Admin";
+// import Admin from "./components/Admin";
 import Sitters from "./components/Sitters";
-import ProfileForPetSitter from "./components/Profiles/ProfileForPetSitter";
-import ProfileForPetOwner from "./components/Profiles/ProfileForPetOwner";
+import { AuthProvider } from "./context/AuthProvider";
+import Profile from "./components/Profiles/Profile"; // Новый компонент для профиля
 
 function App() {
   return (
@@ -33,13 +33,13 @@ function App() {
         <Route path="linkpage" element={<LinkPage />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="sitters" element={<Sitters />} />
-        <Route path="profile" element={<ProfileForPetSitter />} />
+        <Route path="profile" element={<Profile />} />
 
         {/* we want to protect these routes */}
 
         <Route path="/" element={<Home />} />
 
-        <Route path="admin" element={<Admin />} />
+        {/* <Route path="admin" element={<Admin />} /> */}
 
         {/* catch all */}
         <Route path="*" element={<Missing />} />

@@ -1,7 +1,7 @@
 export const BASE_URL = "http://localhost:8001/api";
 
 export const API_ENDPOINTS = {
-  //petsitters
+  //PETSITTERS
   PET_SITTERS: `${BASE_URL}/pet-sitters`,
 
   //AUTH

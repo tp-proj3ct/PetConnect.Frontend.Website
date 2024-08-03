@@ -54,17 +54,18 @@ const Login = () => {
           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
         ];
 
+        
       console.log("Role: ", userRole);
-      setAuth({ login, password, accessToken });
+      setAuth({ login, password, accessToken, userRole});
       setLogin("");
       setPassword("");
-      //navigate(from, { replace: true });
+      navigate(from, { replace: true });
     } catch (error) {
       console.error("Error response:", error.response);
       if (!error.response) {
         setErrorMessage("No server response");
       } else if (error.response?.status === 400) {
-        setErrorMessage("Missing login or password");
+        setErrorMessage("Wrong login or password");
       } else if (error.response.status === 401) {
         setErrorMessage("Unauthorized");
       } else {

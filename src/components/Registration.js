@@ -67,7 +67,7 @@ const Register = () => {
         <section>
           <h1>Success!</h1>
           <p>
-            <Link to="/">Sign In</Link>
+            <Link to="/login">Sign In</Link>
           </p>
         </section>
       ) : (
@@ -85,7 +85,7 @@ const Register = () => {
               value={login}
               required
             />
-
+  
             <label htmlFor="email">Email:</label>
             <input
               type="email"
@@ -95,7 +95,7 @@ const Register = () => {
               value={email}
               required
             />
-
+  
             <label htmlFor="password">Password:</label>
             <input
               type="password"
@@ -104,7 +104,7 @@ const Register = () => {
               value={password}
               required
             />
-
+  
             <label htmlFor="confirm_pwd">Confirm Password:</label>
             <input
               type="password"
@@ -113,7 +113,7 @@ const Register = () => {
               value={matchPwd}
               required
             />
-
+  
             <label htmlFor="role">Role:</label>
             <select
               type="role"
@@ -126,7 +126,7 @@ const Register = () => {
               <option value="Сиделка">Сиделка</option>
               <option value="Хозяин">Хозяин</option>
             </select>
-
+  
             <button disabled={!login || !password || !email || !role}>
               Sign Up
             </button>
@@ -135,7 +135,7 @@ const Register = () => {
             Already registered?
             <br />
             <span>
-              <Link to="/">Sign In</Link>
+              <Link to="/login">Sign In</Link>
             </span>
           </p>
         </section>
