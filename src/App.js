@@ -9,7 +9,6 @@ import LinkPage from "./components/LinkPage";
 import Unauthorized from "./components/Unauthorized";
 // import Admin from "./components/Admin";
 import Sitters from "./components/Sitters";
-import { AuthProvider } from "./context/AuthProvider";
 import Profile from "./components/Profiles/Profile"; // Новый компонент для профиля
 
 function App() {
@@ -34,12 +33,12 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="sitters" element={<Sitters />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="profile" element={<Profile />} />
 
         {/* we want to protect these routes */}
 
         <Route path="/" element={<Home />} />
-
-        {/* <Route path="admin" element={<Admin />} /> */}
+        <Route path="admin" element={<Admin />} />
 
         {/* catch all */}
         <Route path="*" element={<Missing />} />

@@ -5,6 +5,7 @@ import ProfileForPetOwner from './ProfileForPetOwner';
 import ProfileForPetSitter from './ProfileForPetSitter';
 import useAuth from '../../hooks/useAuth';
 import Unauthorized from '../Unauthorized';
+import Admin from '../Admin';
 
 const Profile = () => {
   const { auth } = useAuth();
@@ -14,6 +15,8 @@ const Profile = () => {
     return <ProfileForPetOwner />;
   } else if (auth.userRole === 'PetSitter') {
     return <ProfileForPetSitter />;
+  } else if (auth.userRole === 'Admin') {
+    return <Admin />
   } else {
     return <Unauthorized />
   }
