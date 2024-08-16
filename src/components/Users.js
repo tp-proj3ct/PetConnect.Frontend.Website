@@ -22,7 +22,6 @@ const Users = () => {
         isMounted && setUsers(response.data);
       } catch (err) {
         console.error(err);
-        // navigate('/auth/login', { state: { from: location }, replace: true });
       }
     };
 
@@ -40,7 +39,7 @@ const Users = () => {
       {users?.length ? (
         <ul>
           {users.map((user) => (
-            <li key={user.id}>{user?.login}</li>
+            <li key={user.id}>{user?.login}, {user?.role}</li>
           ))}
         </ul>
       ) : (

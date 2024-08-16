@@ -4,17 +4,18 @@
     box-sizing: border-box;
 }
 
+
 html {
     font-family: 'Nunito', sans-serif;
     font-size: 22px;
-    color: #fff;
+    color: #000000;
     height: 100vh;
     transition: all 250ms ease; 
 }
 
 body {
     min-height: 100vh;
-    background-color: dodgerblue;
+    background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,7 +40,7 @@ section {
   justify-content: center; 
   align-items: center; 
   padding: 1rem;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   text-align: center; 
 }
 
@@ -52,11 +53,12 @@ form {
 }
 
 a, a:visited {
-    color: #fff;
+    color: #000000;
 }
 
 input[type="text"],
 input[type="password"],
+input[type="number"],
 input[type="email"],
 input[type="role"],
 input[type="name"],

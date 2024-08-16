@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { API_ENDPOINTS } from "../constants/constants";
 
 const Sitters = () => {
+  
   const [petSitters, setPetSitters] = useState([]);
 
   const getPetSitters = async () => {
@@ -26,11 +27,10 @@ const Sitters = () => {
         <ul>
           {petSitters.map((sitter) => (
             <li key={sitter.id}>
-              <Link to={`/pet-sitters/${sitter.id}`}>
+              <Link to={`/sitter/${sitter.id}`}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img
                     src={sitter.profilePic}
-                    alt={`${sitter.name} ${sitter.surname}`}
                     style={{
                       width: "50px",
                       height: "50px",

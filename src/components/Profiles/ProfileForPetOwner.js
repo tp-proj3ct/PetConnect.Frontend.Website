@@ -187,6 +187,10 @@ const Profile = () => {
         surname: payload.surname,
       }));
 
+      
+      setName("");
+      setSurname("");
+
       navigate(from, { replace: true });
     } catch (error) {
       console.error("Error response:", error.response);
