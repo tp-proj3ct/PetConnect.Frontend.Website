@@ -98,7 +98,7 @@ const Login = () => {
           value={password}
           required
         />
-        <button>Sign In</button>
+        <button disabled={!login || !password}>Sign In</button>
       </form>
       <p>
         Need an Account?

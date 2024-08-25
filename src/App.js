@@ -15,7 +15,7 @@ import Profile from "./components/Profiles/Profile"; // Новый компон�
 
 function App() {
   return (
-    <div>
+    <div className="App">
 
         <Navbar />
       

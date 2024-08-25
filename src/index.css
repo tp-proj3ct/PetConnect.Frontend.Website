@@ -16,9 +16,9 @@ html {
 body {
     min-height: 100vh;
     background-color: rgb(255, 255, 255);
-    display: flex;
-    justify-content: center;
+    display:flex;
     align-items: center;
+    justify-content: center;
 }
 
 .App {
@@ -60,13 +60,13 @@ input[type="text"],
 input[type="password"],
 input[type="number"],
 input[type="email"],
-input[type="role"],
 input[type="name"],
 input[type="surname"],
+select,
 button,
 textarea {
     font-family: 'Nunito', sans-serif;
-    font-size: 22px;
+    font-size: 25px;
     padding: 0.25rem;
     border-radius: 0.5rem;
 }
@@ -83,10 +83,20 @@ background-color: rgba(0,0,0,0.4);
 color: #f2f2f2;
 padding: 10px;
 font-size: 18px;
-border-radius: 5px;
+border-radius: 12px;
 position: relative;
 box-sizing: border-box;
 transition: all 500ms ease; 
+}
+
+:disabled {
+    color: #fff;
+    background-color: #000;
+}
+
+:disabled:hover {
+    color:#fff;
+    background-color: #000;
 }
 
 button:hover {
@@ -98,6 +108,60 @@ button:hover {
 li {
     list-style-type: none;
 }
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+    top: 0;
+    position: fixed;
+    width: 100%;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 35px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  .topnav-logout a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 35px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  .topnav-logout a.active {
+    background-color: #333;
+    color: white;
+  }
+  .topnav-right {
+    float: right;
+  }
+
+  .topnav-main{
+    display: block;
+  }
 
 .instructions {
     font-size: 0.75rem;
@@ -150,4 +214,5 @@ li {
     justify-content: flex-start;
     align-items: flex-end;
 }
+
 

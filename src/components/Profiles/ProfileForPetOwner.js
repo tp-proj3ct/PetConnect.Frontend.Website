@@ -10,6 +10,7 @@ const Profile = () => {
   const [profile, setProfile] = useState();
   const axiosPrivate = useAxiosPrivate();
   const [name, setName] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const [surname, setSurname] = useState("");
   const [petInfo, setPetInfo] = useState([]);
   const [selectedPet, setSelectedPet] = useState(null);
@@ -206,6 +207,27 @@ const Profile = () => {
     }
   };
 
+  const handleAddProfilePicture = async (e) => {
+    e.preventDefault();
+
+    try {
+      const payload = {
+        profilePic: profilePic || profile.profilePic
+      };
+      console.log("Sending payload: ", payload);
+
+      const response = await axiosPrivate.post(
+        `${API_ENDPOINTS.PROFILE_URL}/picture`, payload
+      );
+
+      setProfilePic(response.data);
+
+      navigate(from, {replace: true});
+    }catch(error) {
+      console.error(error.response);
+    }
+  }
+
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
@@ -227,6 +249,21 @@ const Profile = () => {
       }
     };
 
+    const getUserProfilePicture = async () => {
+      try {
+        const response = await axiosPrivate.get(`${API_ENDPOINTS.PROFILE_URL}/picture`, {
+          signal: controller.signal,
+        });
+
+        console.log("User pfp: ", response.data);
+        if (isMounted) {
+          setProfilePic(response.data);
+        }
+      } catch(err) {
+        console.log(err);
+      }
+    };
+
     const getUserPets = async () => {
       try {
         const response = await axiosPrivate.get(API_ENDPOINTS.PETS_URL, {
@@ -241,6 +278,7 @@ const Profile = () => {
     };
 
     getUserProfile();
+    getUserProfilePicture();
     getUserPets();
 
     return () => {
@@ -263,8 +301,18 @@ const Profile = () => {
       <div>
         <div>
           <h2>
-            {profile.name} {profile.surname}
+            {profile.profilePic} {profile.name} {profile.surname}
           </h2>
+          <form onSubmit={handleAddProfilePicture}>
+            <label htmlFor="file">Изменить фото</label>
+            <input
+            type="file"
+            id="profilePic"
+            value={profilePic}
+            onChange={(e) => setProfilePic(e.target.value)}
+            />
+            <button type="submit">Change</button>
+          </form>
           <form onSubmit={handleEditProfile}>
             <label htmlFor="name">Name:</label>
             <input

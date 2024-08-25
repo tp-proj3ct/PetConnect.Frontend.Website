@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { API_ENDPOINTS } from "../constants/constants";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 
 const SitterPage = () => {
+  const userRef = useRef();
+  const errRef = useRef();
+
+
   const [profile, setProfile] = useState([]);
   const [services, setServices] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [reviewRating, setReviewRating] = useState("");
   const [reviewComment, setReviewComment] = useState("");
   const [isAddingReview, setIsAddingReview] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
   const {id} = useParams();
 
   const axiosPrivate = useAxiosPrivate();
@@ -19,11 +24,18 @@ const SitterPage = () => {
   const from = location.state?.from?.pathname || `/sitter/${id}`;
   const [errorMessage, setErrorMessage] = useState("");
   const { auth } = useAuth();
+  console.log(JSON.stringify(auth.userRole));
+
+
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [reviewRating, reviewComment]);
+
 
 
   const handleAddReview = async (e) => {
     e.preventDefault();
-
     try{
       const payload = {
         rating: reviewRating,
@@ -33,6 +45,8 @@ const SitterPage = () => {
       const response = await axiosPrivate.post(`${API_ENDPOINTS.PET_SITTERS}/${id}/reviews`, payload);
       console.log(response.data);
 
+
+
       setReviews([...reviews, response.data]);
 
       setIsAddingReview(false);
@@ -41,8 +55,8 @@ const SitterPage = () => {
       setReviewComment("");
 
       // navigate(from, {replace: true});
-    } catch(error) {
-      console.error(error.response);
+    } catch(err) {
+      console.error(err.response);
     }
   }
 

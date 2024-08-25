@@ -122,7 +122,7 @@ const Register = () => {
               value={role}
               required
             >
-              <option value="">Select Role</option>
+              <option value="">Вы хозяин или сиделка?</option>
               <option value="Сиделка">Сиделка</option>
               <option value="Хозяин">Хозяин</option>
             </select>
