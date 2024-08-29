@@ -4,19 +4,27 @@ import { useState, useEffect } from "react";
 import { API_ENDPOINTS } from "../constants/constants";
 
 const Sitters = () => {
-  
+  const allowedFileTypes = ["image/png", "image/jpeg", "image/gif"];
   const [petSitters, setPetSitters] = useState([]);
+  const [petSittersPicture, setPetSittersPicture] = useState("");
 
-  const getPetSitters = async () => {
-    try {
-      const response = await axios.get(API_ENDPOINTS.PET_SITTERS);
-      setPetSitters(response.data);
-    } catch (err) {
-      console.error(err.toJSON());
-    }
-  };
+  function DisplayPicture(pfp) {
+    let result = `data:image/jpeg;base64,${pfp}`;
+    return result;
+  }
 
   useEffect(() => {
+    const getPetSitters = async () => {
+      try {
+        const response = await axios.get(API_ENDPOINTS.PET_SITTERS);
+
+        console.log(response);
+        setPetSitters(response.data);
+      } catch (err) {
+        console.error(err.toJSON());
+      }
+    };
+
     getPetSitters();
   }, []);
 
@@ -30,7 +38,8 @@ const Sitters = () => {
               <Link to={`/sitter/${sitter.id}`}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img
-                    src={sitter.profilePic}
+                    src={DisplayPicture(sitter.profilePic)}
+                    alt=":("
                     style={{
                       width: "50px",
                       height: "50px",
@@ -39,9 +48,18 @@ const Sitters = () => {
                     }}
                   />
                   <div>
-                    <h2>
-                      {sitter.name} {sitter.surname}
-                    </h2>
+                    {sitter.name ? (
+                      <h2>
+                        <p>
+                          {sitter.name} {sitter.surname}
+                        </p>
+                      </h2>
+                    ) : (
+                      <h2>
+                        <p>Сиделка без имени</p>
+                      </h2>
+                    )}
+
                     <p>{sitter.description}</p>
                     <p>Rating: {sitter.rating}</p>
                     <p>Experience: {sitter.experienceYears} years</p>

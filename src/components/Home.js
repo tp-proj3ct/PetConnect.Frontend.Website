@@ -18,7 +18,7 @@ const Home = () => {
 
     return (
       <section>
-      <h1>Home</h1>
+      <h1>Pet Connect</h1>
       <br />
       <Link to="/admin">Go to the Admin page</Link>
       <br />

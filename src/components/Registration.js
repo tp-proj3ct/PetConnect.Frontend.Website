@@ -33,7 +33,7 @@ const Register = () => {
       return;
     }
 
-    const roleValue = role === "Сиделка" ? "PetSitter" : "PetOwner";
+    const roleValue =  role === "Сиделка" ? "PetSitter" : "PetOwner";
 
     try {
       const payload = { login, password, email, role: roleValue };
@@ -65,17 +65,17 @@ const Register = () => {
     <>
       {success ? (
         <section>
-          <h1>Success!</h1>
+          <h1>Регистрация прошла успешно!</h1>
           <p>
-            <Link to="/login">Sign In</Link>
+            <Link to="/login">Войти в аккаунт</Link>
           </p>
         </section>
       ) : (
         <section>
           <p ref={errRef}>{errMsg}</p>
-          <h1>Register</h1>
+          <h1>Регистрация</h1>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username">Имя пользователя:</label>
             <input
               type="text"
               id="username"
@@ -86,7 +86,7 @@ const Register = () => {
               required
             />
   
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">Эл. почта:</label>
             <input
               type="email"
               id="email"
@@ -96,7 +96,7 @@ const Register = () => {
               required
             />
   
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Пароль:</label>
             <input
               type="password"
               id="password"
@@ -105,7 +105,7 @@ const Register = () => {
               required
             />
   
-            <label htmlFor="confirm_pwd">Confirm Password:</label>
+            <label htmlFor="confirm_pwd">Повторите пароль:</label>
             <input
               type="password"
               id="confirm_pwd"
@@ -114,7 +114,7 @@ const Register = () => {
               required
             />
   
-            <label htmlFor="role">Role:</label>
+            <label htmlFor="role">Роль: </label>
             <select
               type="role"
               id="role"
@@ -128,14 +128,14 @@ const Register = () => {
             </select>
   
             <button disabled={!login || !password || !email || !role}>
-              Sign Up
+              Зарегистрироваться
             </button>
           </form>
           <p>
-            Already registered?
+            Уже есть аккаунт?
             <br />
             <span>
-              <Link to="/login">Sign In</Link>
+              <Link to="/login">Войти</Link>
             </span>
           </p>
         </section>

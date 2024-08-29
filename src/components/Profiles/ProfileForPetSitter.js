@@ -8,6 +8,7 @@ const Profile = () => {
   const [profile, setProfile] = useState();
   const axiosPrivate = useAxiosPrivate();
   const [name, setName] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const [surname, setSurname] = useState("");
   const [serviceInfo, setServiceInfo] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
@@ -27,6 +28,41 @@ const Profile = () => {
     setServiceName(service.name);
     setServiceDescription(service.description);
     setServicePrice(service.price);
+  };
+
+  const handleAddProfilePicture = async (e) => {
+    e.preventDefault();
+    const fileInput = document.getElementById("profilePic");
+    const file = fileInput.files[0]; // Получаем файл из input
+
+    if (!file) {
+      console.error("No file selected");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("picture", file); // Добавляем файл в formData
+
+      const response = await axiosPrivate.post(
+        `${API_ENDPOINTS.PROFILE_URL}/picture`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Если сервер возвращает base64
+      const imageUrl = `${file.type};base64,${response.data}`;
+      setProfilePic(imageUrl);
+
+      navigate("/");
+      navigate("/profile");
+    } catch (error) {
+      console.error("Error response:", error.response);
+    }
   };
 
   const handleAddService = async (e) => {
@@ -178,6 +214,33 @@ const Profile = () => {
     let isMounted = true;
     const controller = new AbortController();
 
+    const getUserProfilePicture = async () => {
+      try {
+        const response = await axiosPrivate.get(
+          `${API_ENDPOINTS.PROFILE_URL}/picture`,
+          {
+            responseType: "arraybuffer", // ожидаем бинарные данные от сервера
+            signal: controller.signal,
+          }
+        );
+
+        // Создаем blob из полученных данных
+        const blob = new Blob([response.data], { type: "image/jpeg" });
+
+        // Используем FileReader для преобразования blob в base64
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const imageBase64 = reader.result; // это будет base64 строка, включающая data:image/jpeg;base64
+          if (isMounted) {
+            setProfilePic(imageBase64);
+          }
+        };
+        reader.readAsDataURL(blob); // Преобразуем blob в base64
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     const getUserProfile = async () => {
       try {
         const response = await axiosPrivate.get(API_ENDPOINTS.PROFILE_URL, {
@@ -209,6 +272,7 @@ const Profile = () => {
     };
 
     getUserProfile();
+    getUserProfilePicture();
     getUserServices();
 
     return () => {
@@ -230,9 +294,26 @@ const Profile = () => {
       <h1>User Profile</h1>
       <div>
         <div>
-          <h2>
-            {profile.name} {profile.surname}
-          </h2>
+          {profilePic && (
+            <div>
+              <h2>Profile Picture:</h2>
+              <img src={profilePic} alt="Profile" />
+            </div>
+          )}
+
+          {profile && (
+            <div>
+              <h2>Profile info:</h2>
+              <h1>
+                {profile.name} {profile.surname}
+              </h1>
+            </div>
+          )}
+          <form onSubmit={handleAddProfilePicture}>
+            <label htmlFor="file">Изменить фото</label>
+            <input type="file" id="profilePic" accept="image/*" />
+            <button type="submit">Change</button>
+          </form>
           <form onSubmit={handleEditProfile}>
             <label htmlFor="name">Name:</label>
             <input

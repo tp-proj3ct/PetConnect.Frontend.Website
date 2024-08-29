@@ -1,15 +1,15 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 import { useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
+import AuthContext from "../../../context/AuthProvider";
+import './navbar.css'
 
-const Navbar = () => {
+const NavBar = () => {
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const { auth } = useAuth();
-  console.log(JSON.stringify(auth.userRole));
 
-  function logout() {
+  const logout = () => {
     setAuth({});
     navigate('/', {});
     window.location.reload();
@@ -33,11 +33,11 @@ const Navbar = () => {
         <NavLink to="/">Главная</NavLink>
         <NavLink to="/profile">Личный кабинет</NavLink>
         <NavLink to="/sitters">Сиделки</NavLink>
-        <NavLink onClick={logout}>Выйти</NavLink>
+        <NavLink className={"topnav-logout"} onClickCapture={logout}>Выйти</NavLink>
         </div>
       </div>
     )
   }
 };
  
-export default Navbar;
+export default NavBar;

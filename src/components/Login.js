@@ -1,9 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios, { axiosPrivate } from "../api/axios";
+import { axiosPrivate } from "../api/axios";
 import { API_ENDPOINTS } from "../constants/constants";
-import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const { setAuth } = useAuth();
@@ -78,9 +77,9 @@ const Login = () => {
   return (
     <section>
       <p ref={errRef}>{errorMessage}</p>
-      <h1>Sign In</h1>
+      <h1>Войти</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="login">Login:</label>
+        <label htmlFor="login">Логин:</label>
         <input
           type="text"
           id="login"
@@ -90,7 +89,7 @@ const Login = () => {
           value={login}
           required
         />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">Пароль:</label>
         <input
           type="password"
           id="password"
@@ -98,13 +97,13 @@ const Login = () => {
           value={password}
           required
         />
-        <button disabled={!login || !password}>Sign In</button>
+        <button disabled={!login || !password}>Войти</button>
       </form>
       <p>
-        Need an Account?
+        Нужен аккаунт?
         <br />
         <span>
-          <Link to="/registration">Sign Up</Link>
+          <Link to="/registration">Регистрация</Link>
         </span>
       </p>
     </section>

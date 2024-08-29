@@ -3,7 +3,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 // import RequireAuth from './components/RequireAuth';
 // import Layout from './components/Layout';
-import Navbar from "./components/ui/Navbar";
+import NavBar from "./components/UI/NavBarUI/NavBar";
 import SitterPage from "./components/SitterPage";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 import Missing from "./components/Missing";
@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
 
-        <Navbar />
+        <NavBar />
       
       <Routes>
         <Route path="/" element={<Home />} />

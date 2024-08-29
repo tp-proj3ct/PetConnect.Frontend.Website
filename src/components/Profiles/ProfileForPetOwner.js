@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API_ENDPOINTS } from "../../constants/constants";
+import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
@@ -7,6 +8,8 @@ import { Navigate, useNavigate, useLocation } from "react-router-dom";
 //TODO: PetOwner/PetSitter profile pages(Now only PetOwner), create css for profile page, Add profile picture
 
 const Profile = () => {
+  const delay = (milliseconds) => new Promise(resolve => setTimeout(resolve, milliseconds));
+
   const [profile, setProfile] = useState();
   const axiosPrivate = useAxiosPrivate();
   const [name, setName] = useState("");
@@ -170,6 +173,10 @@ const Profile = () => {
     e.preventDefault();
 
     try {
+
+      setName("");
+      setSurname("");
+      
       const payload = {
         name: name || profile.name,
         surname: surname || profile.surname,
@@ -188,7 +195,6 @@ const Profile = () => {
         surname: payload.surname,
       }));
 
-      
       setName("");
       setSurname("");
 
@@ -209,28 +215,69 @@ const Profile = () => {
 
   const handleAddProfilePicture = async (e) => {
     e.preventDefault();
+    const fileInput = document.getElementById("profilePic");
+    const file = fileInput.files[0]; // Получаем файл из input
+
+    if (!file) {
+      console.error("No file selected");
+      return;
+    }
 
     try {
-      const payload = {
-        profilePic: profilePic || profile.profilePic
-      };
-      console.log("Sending payload: ", payload);
+      const formData = new FormData();
+      formData.append("picture", file); // Добавляем файл в formData
 
       const response = await axiosPrivate.post(
-        `${API_ENDPOINTS.PROFILE_URL}/picture`, payload
+        `${API_ENDPOINTS.PROFILE_URL}/picture`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
-      setProfilePic(response.data);
+      // Если сервер возвращает base64
+      const imageUrl = `${file.type};base64,${response.data}`;
+      setProfilePic(imageUrl);
 
-      navigate(from, {replace: true});
-    }catch(error) {
-      console.error(error.response);
+      navigate("/");
+      navigate("/profile");
+    } catch (error) {
+      console.error("Error response:", error.response);
     }
-  }
+  };
 
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
+
+    const getUserProfilePicture = async () => {
+      try {
+        const response = await axiosPrivate.get(
+          `${API_ENDPOINTS.PROFILE_URL}/picture`,
+          {
+            responseType: "arraybuffer", // ожидаем бинарные данные от сервера
+            signal: controller.signal,
+          }
+        );
+
+        // Создаем blob из полученных данных
+        const blob = new Blob([response.data], { type: "image/jpeg" });
+
+        // Используем FileReader для преобразования blob в base64
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const imageBase64 = reader.result; // это будет base64 строка, включающая data:image/jpeg;base64
+          if (isMounted) {
+            setProfilePic(imageBase64);
+          }
+        };
+        reader.readAsDataURL(blob); // Преобразуем blob в base64
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
     const getUserProfile = async () => {
       try {
@@ -249,20 +296,7 @@ const Profile = () => {
       }
     };
 
-    const getUserProfilePicture = async () => {
-      try {
-        const response = await axiosPrivate.get(`${API_ENDPOINTS.PROFILE_URL}/picture`, {
-          signal: controller.signal,
-        });
-
-        console.log("User pfp: ", response.data);
-        if (isMounted) {
-          setProfilePic(response.data);
-        }
-      } catch(err) {
-        console.log(err);
-      }
-    };
+    
 
     const getUserPets = async () => {
       try {
@@ -287,29 +321,39 @@ const Profile = () => {
     };
   }, [axiosPrivate]);
 
-  if (!auth) {
-    return <Navigate to="/login" />;
-  }
-
-  if (!profile) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <div>
       <h1>User Profile</h1>
       <div>
         <div>
-          <h2>
-            {profile.profilePic} {profile.name} {profile.surname}
-          </h2>
+          {profilePic && (
+            <div>
+              <h2>Profile Picture:</h2>
+              <img 
+              src={profilePic} 
+              alt="Profile" 
+              style={{
+                width: "500px",
+                height: "500px",
+                borderRadius: "50%",
+                marginRight: "100px",
+              }}
+              />
+            </div>
+          )}
+
+          {profile && (
+            <div>
+              <h2>Profile info:</h2>
+              <h1>{profile.name} {profile.surname}</h1>
+            </div>
+          )}
           <form onSubmit={handleAddProfilePicture}>
             <label htmlFor="file">Изменить фото</label>
             <input
-            type="file"
-            id="profilePic"
-            value={profilePic}
-            onChange={(e) => setProfilePic(e.target.value)}
+              type="file"
+              id="profilePic"
+              accept="image/*"
             />
             <button type="submit">Change</button>
           </form>
@@ -354,6 +398,7 @@ const Profile = () => {
               <label>Name:</label>
               <input
                 type="text"
+
                 value={petName}
                 onChange={(e) => setPetName(e.target.value)}
               />

@@ -115,59 +115,67 @@ const SitterPage = () => {
 
   return (
     <div>
-
       <h1>
-      {profile.name} {profile.surname}
+        {profile.name} {profile.surname}
       </h1>
-    
-    {services.length ? (
-      <ul>
-      {services.map((service) => (
-        <li key={service.id}>
-        
-          <p>Услуга: {service.name}</p>
-          <p>Описание: {service.description}</p>
-          <p>Цена: {service.price} рублей</p>
-        </li>
-      ))}
-      </ul>
-    ) : (
-      <p>No services to display</p>
-    )}
-    
-    <h2>Отзывы</h2>
-    {reviews.length ? (
-      <ul>
-        {reviews.map((review) => (
-          <li key={review.id}>
-            <p>Комментарий: {review.comment}</p>
-            <p>Рейтинг: {review.rating}</p>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p>Отзывов пока нет.</p>
-    )}
-  <button onClick={() => setIsAddingReview(true)}>Добавить отзыв</button>
-  {isAddingReview && (
-    <form onSubmit={handleAddReview}>
-      <label>Рейтинг: </label>
-      <input
-        type="number"
-        value={reviewRating}
-        onChange={(e) => setReviewRating(e.target.value)}
-      />
-      <label>Комментарий: </label>
-      <input
-        type="text"
-        value={reviewComment}
-        onChange={(e) => setReviewComment(e.target.value)}
-      />
-      <button type="submit">Отправить отзыв</button>
-    </form>
-  )}
-  </div>
-  )
-};
+  
+      {services.length ? (
+        <ul>
+          {services.map((service) => (
+            <li key={service.id}>
+              <p>Услуга: {service.name}</p>
+              <p>Описание: {service.description}</p>
+              <p>Цена: {service.price} рублей</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No services to display</p>
+      )}
+  
+      <h2>Отзывы</h2>
+      {reviews.length ? (
+        <ul>
+          {reviews.map((review) => (
+            <li key={review.id}>
+              <p>Комментарий: {review.comment}</p>
+              <p>Рейтинг: {review.rating}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Отзывов пока нет.</p>
+      )}
+  
+      {auth.userRole === '' ? (
+        <article>
+          <p>Войдите в аккаунт, чтобы оставить отзыв</p>
+          <button onClick={() => navigate("/login")}>Войти</button>
+        </article>
+      ) : (
+        <>
+          <button onClick={() => setIsAddingReview(true)}>Добавить отзыв</button>
+          {isAddingReview && (
+            <form onSubmit={handleAddReview}>
+              <label>Рейтинг: </label>
+              <input
+                type="number"
+                value={reviewRating}
+                onChange={(e) => setReviewRating(e.target.value)}
+              />
+              <label>Комментарий: </label>
+              <input
+                type="text"
+                value={reviewComment}
+                onChange={(e) => setReviewComment(e.target.value)}
+              />
+              <button type="submit">Отправить отзыв</button>
+            </form>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
 
 export default SitterPage;
