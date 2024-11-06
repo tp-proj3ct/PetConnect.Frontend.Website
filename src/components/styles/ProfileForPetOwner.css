@@ -1,0 +1,185 @@
+
+
+.hidden {
+  display: none;
+}
+
+.profile-container {
+  display: flex;
+  padding: 100px;
+  gap: 250px;
+  color: white;
+  justify-content: center;
+}
+
+/* PROFILE SIDEBAR */
+
+.profile-sidebar {
+  text-align: center;
+  max-height: 570px;
+  min-height: 570px;
+  max-width: 450px;
+  background-color: #5ea09e;
+  padding: 20px;
+  min-width: 450px;
+  border-radius: 8px;
+  display: block;
+}
+
+.profile-sidebar input {
+  display: block;
+  width: 250px;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+.profile-picture-section {
+  text-align: center;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.profile-photo {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.profile-info h2 {
+  margin: 10px 0;
+}
+
+/* PET-LIST */
+
+.pet-list-container {
+  flex-grow: 1;
+  background-color: #5ea09e;
+  border-radius: 8px;
+  max-height: none;
+  min-height: none;
+  min-width: 500px;
+  max-width: 700px;
+}
+
+
+.pet-item {
+  margin-bottom: 10px;
+  display: block;
+}
+
+
+
+
+.pet-item button {
+  display:flow-root;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: left;
+}
+
+
+.pet-info {
+  background-color:#5ea09e;
+  padding: 10px;
+  border-radius: 5px;
+  justify-content: center;
+}
+
+.pet-description input {
+  display: block;
+  width: 100%;
+  height: 120px;
+  padding: 8px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 4px;
+}
+
+/* ADD PET */
+
+.add-pet-form {
+  background-color: #5ea09e;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.pet-add-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 4px;
+}
+
+/* EDIT PET */
+
+.pet-edit-form {
+  background-color: #5ea09e;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.pet-edit-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 4px;
+}
+
+
+
+.gender-selection {
+  display: flex;
+  flex-direction: row; /* Вертикальное выравнивание элементов */
+  margin-top: 5px; /* Отступ сверху, чтобы отделить от предыдущего элемента */
+  gap: 120px;
+}
+
+.gender-option {
+  display: flex; /* Горизонтальное расположение текста и радиокнопки */
+  align-items: center; /* Выравнивание по вертикали */
+}
+
+.gender-option span {
+  margin-right: 10px; /* Отступ между текстом и радиокнопкой */
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+button {
+  background-color: white;
+  color: #5ea09e;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  gap: 20px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #74c4c1;
+}
+

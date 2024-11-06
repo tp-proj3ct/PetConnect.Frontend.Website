@@ -2,7 +2,10 @@
   "name": "pet-connect",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8001",
+  "options": {
+    "allowedHosts": ["localhost", ".localhost"],
+    "proxy": "https://localhost:8001/"
+    },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",

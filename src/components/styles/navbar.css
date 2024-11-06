@@ -42,5 +42,5 @@
   }
   
   .topnav-main {
-    display: block;
+    display: flex;
   }

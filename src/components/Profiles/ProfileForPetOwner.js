@@ -4,12 +4,9 @@ import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
-
-//TODO: PetOwner/PetSitter profile pages(Now only PetOwner), create css for profile page, Add profile picture
+import "../styles/ProfileForPetOwner.css";
 
 const Profile = () => {
-  const delay = (milliseconds) => new Promise(resolve => setTimeout(resolve, milliseconds));
-
   const [profile, setProfile] = useState();
   const axiosPrivate = useAxiosPrivate();
   const [name, setName] = useState("");
@@ -18,6 +15,7 @@ const Profile = () => {
   const [petInfo, setPetInfo] = useState([]);
   const [selectedPet, setSelectedPet] = useState(null);
   const [isAddingPet, setIsAddingPet] = useState(false);
+  const [isEditingPet, setIsEditingPet] = useState(false);
   const [petName, setPetName] = useState("");
   const [petAge, setPetAge] = useState("");
   const [petWeight, setPetWeight] = useState("");
@@ -27,6 +25,8 @@ const Profile = () => {
   const [petBreed, setPetBreed] = useState("");
   const [petDescription, setPetDescription] = useState("");
   const [petMedicalInfo, setPetMedicalInfo] = useState("");
+  const [profilePictureFile, setProfilePictureFile] = useState(null);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,16 +35,32 @@ const Profile = () => {
   const { auth } = useAuth();
 
   const handleSelectPet = (pet) => {
-    setSelectedPet(pet);
-    setPetName(pet.name);
-    setPetAge(pet.age);
-    setPetWeight(pet.weight);
-    setPetGender(pet.gender);
-    setPetBehavior(pet.behavior);
-    setPetType(pet.type);
-    setPetBreed(pet.breed);
-    setPetDescription(pet.description);
-    setPetMedicalInfo(pet.medicalInfo);
+    if (selectedPet && selectedPet.id === pet.id) {
+      // Если кликнули на уже выбранного питомца, сворачиваем информацию
+      setSelectedPet(null);
+      setIsEditingPet(false);
+    } else {
+      // Если кликнули на другого питомца, разворачиваем его информацию
+      setSelectedPet(pet);
+      setPetName(pet.name);
+      setPetAge(pet.age);
+      setPetWeight(pet.weight);
+      setPetGender(pet.gender);
+      setPetBehavior(pet.behavior);
+      setPetType(pet.type);
+      setPetBreed(pet.breed);
+      setPetDescription(pet.description);
+      setPetMedicalInfo(pet.medicalInfo);
+      setIsEditingPet(false);
+    }
+  };
+
+  const toggleEditPet = () => {
+    setIsEditingPet(!isEditingPet);
+  };
+
+  const toggleAddPet = () => {
+    setIsAddingPet(!isAddingPet);
   };
 
   const handleEditPet = async (e) => {
@@ -173,10 +189,9 @@ const Profile = () => {
     e.preventDefault();
 
     try {
-
       setName("");
       setSurname("");
-      
+
       const payload = {
         name: name || profile.name,
         surname: surname || profile.surname,
@@ -197,6 +212,8 @@ const Profile = () => {
 
       setName("");
       setSurname("");
+
+      setIsEditingProfile(false);
 
       navigate(from, { replace: true });
     } catch (error) {
@@ -296,8 +313,6 @@ const Profile = () => {
       }
     };
 
-    
-
     const getUserPets = async () => {
       try {
         const response = await axiosPrivate.get(API_ENDPOINTS.PETS_URL, {
@@ -322,199 +337,272 @@ const Profile = () => {
   }, [axiosPrivate]);
 
   return (
-    <div>
-      <h1>User Profile</h1>
-      <div>
-        <div>
+    <div className="profile-container">
+      <div className="profile-sidebar">
+        <div className="profile-picture-section">
           {profilePic && (
-            <div>
-              <h2>Profile Picture:</h2>
-              <img 
-              src={profilePic} 
-              alt="Profile" 
-              style={{
-                width: "500px",
-                height: "500px",
-                borderRadius: "50%",
-                marginRight: "100px",
-              }}
-              />
-            </div>
+            <img className="profile-photo" src={profilePic} alt="Profile" />
           )}
-
           {profile && (
-            <div>
-              <h2>Profile info:</h2>
-              <h1>{profile.name} {profile.surname}</h1>
+            <div className="profile-info">
+              <h2>
+                {profile.name} {profile.surname}
+              </h2>
             </div>
           )}
-          <form onSubmit={handleAddProfilePicture}>
-            <label htmlFor="file">Изменить фото</label>
-            <input
-              type="file"
-              id="profilePic"
-              accept="image/*"
-            />
-            <button type="submit">Change</button>
-          </form>
+        </div>
+        <form onSubmit={handleAddProfilePicture}>
+          <input
+            type="file"
+            id="profilePic"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                setProfilePictureFile(file);
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                  setProfilePic(reader.result); // Сохранение результата для отображения превью
+                };
+                reader.readAsDataURL(file); // Чтение файла как Data URL
+              }
+            }}
+            style={{ display: "none" }} // Скрываем input
+          />
+          <button
+            type="button"
+            onClick={() => document.getElementById("profilePic").click()} // Открыть диалог выбора файла
+          >
+            {profilePictureFile ? "Выбрать другое" : "Добавить фото"}
+          </button>
+          {profilePictureFile && (
+            <button type="submit">Сохранить изменения</button>
+          )}
+        </form>
+        {!isEditingProfile ? (
+          <button onClick={() => setIsEditingProfile(true)}>
+            Изменить данные
+          </button>
+        ) : (
           <form onSubmit={handleEditProfile}>
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Имя:</label>
             <input
               type="text"
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            <label htmlFor="surname">Surname:</label>
+            <label htmlFor="surname">Фамилия:</label>
             <input
               type="text"
               id="surname"
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
             />
-            <button type="submit">Change</button>
+            <button type="submit">Сохранить изменения</button>
           </form>
-          <form onSubmit={handleDeleteProfile}>
-            <label>Delete your profile?</label>
-            <button type="submit">Delete my profile</button>
-          </form>
-        </div>
+        )}
       </div>
-      {petInfo.map((item) => (
-        <div key={item.id}>
-          <h2>{item.name}</h2>
-          <p>Age: {item.age}</p>
-          <p>Weight: {item.weight}</p>
-          <p>Gender: {item.gender}</p>
-          <p>Behavior: {item.behavior}</p>
-          <p>Type: {item.type}</p>
-          <p>Breed: {item.breed}</p>
-          <p>Description: {item.description}</p>
-          <p>Medical Info: {item.medicalInfo}</p>
-          <button onClick={() => handleSelectPet(item)}>Edit Pet</button>
-          <button onClick={() => handleDeletePet(item.id)}>Delete Pet</button>
-          {selectedPet && selectedPet.id === item.id && (
-            <form onSubmit={handleEditPet}>
-              <label>Name:</label>
-              <input
-                type="text"
 
-                value={petName}
-                onChange={(e) => setPetName(e.target.value)}
-              />
-              <label>Age:</label>
-              <input
-                type="number"
-                value={petAge}
-                onChange={(e) => setPetAge(e.target.value)}
-              />
-              <label>Weight:</label>
-              <input
-                type="number"
-                value={petWeight}
-                onChange={(e) => setPetWeight(e.target.value)}
-              />
-              <label>Gender:</label>
-              <input
-                type="text"
-                value={petGender}
-                onChange={(e) => setPetGender(e.target.value)}
-              />
-              <label>Behavior:</label>
-              <input
-                type="text"
-                value={petBehavior}
-                onChange={(e) => setPetBehavior(e.target.value)}
-              />
-              <label>Type:</label>
-              <input
-                type="text"
-                value={petType}
-                onChange={(e) => setPetType(e.target.value)}
-              />
-              <label>Breed:</label>
-              <input
-                type="text"
-                value={petBreed}
-                onChange={(e) => setPetBreed(e.target.value)}
-              />
-              <label>Description:</label>
-              <input
-                type="text"
-                value={petDescription}
-                onChange={(e) => setPetDescription(e.target.value)}
-              />
-              <label>Medical Info:</label>
-              <input
-                type="text"
-                value={petMedicalInfo}
-                onChange={(e) => setPetMedicalInfo(e.target.value)}
-              />
-              <button type="submit">Confirm</button>
-            </form>
+      <div className="pet-list-container">
+        {petInfo.map((pet) => (
+          <div key={pet.id} className="pet-item">
+            <button onClick={() => handleSelectPet(pet)}>{pet.name}</button>
+            {selectedPet && selectedPet.id === pet.id && (
+              <div className="pet-item">
+                {isEditingPet ? (
+                  <form className="pet-edit-form" onSubmit={handleEditPet}>
+                    <label>Name:</label>
+                    <input
+                      type="text"
+                      value={petName}
+                      onChange={(e) => setPetName(e.target.value)}
+                    />
+                    <label>Age:</label>
+                    <input
+                      type="number"
+                      value={petAge}
+                      onChange={(e) => setPetAge(e.target.value)}
+                    />
+                    <label>Weight:</label>
+                    <input
+                      type="number"
+                      value={petWeight}
+                      onChange={(e) => setPetWeight(e.target.value)}
+                    />
+                    <label>Gender:</label>
+                    <div className="gender-selection">
+                      <div className="gender-option">
+                        <label>
+                          {" "}
+                          Мальчик
+                          <input
+                            type="radio"
+                            value="Male"
+                            checked={petGender === "Male"}
+                            onChange={() => setPetGender("Male")}
+                          />
+                        </label>
+                      </div>
+                      <div className="gender-option">
+                        <label>
+                          {" "}
+                          Девочка
+                          <input
+                            type="radio"
+                            value="Female"
+                            checked={petGender === "Female"}
+                            onChange={() => setPetGender("Female")}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <label>Behavior:</label>
+                    <input
+                      type="text"
+                      value={petBehavior}
+                      onChange={(e) => setPetBehavior(e.target.value)}
+                    />
+                    <label>Type:</label>
+                    <input
+                      type="text"
+                      value={petType}
+                      onChange={(e) => setPetType(e.target.value)}
+                    />
+                    <label>Breed:</label>
+                    <input
+                      type="text"
+                      value={petBreed}
+                      onChange={(e) => setPetBreed(e.target.value)}
+                    />
+                    <label>Description:</label>
+                    <input
+                      type="text"
+                      value={petDescription}
+                      onChange={(e) => setPetDescription(e.target.value)}
+                    />
+                    <label>Medical Info:</label>
+                    <input
+                      type="text"
+                      value={petMedicalInfo}
+                      onChange={(e) => setPetMedicalInfo(e.target.value)}
+                    />
+                    <button type="submit">Confirm Changes</button>
+                  </form>
+                ) : (
+                  <div className="pet-info">
+                    <p>Age: {pet.age}</p>
+                    <p>Weight: {pet.weight}</p>
+                    <p>Gender: {pet.gender}</p>
+                    <p>Behavior: {pet.behavior}</p>
+                    <p>Type: {pet.type}</p>
+                    <p>Breed: {pet.breed}</p>
+                    <p>Description: {pet.description}</p>
+                    <p>Medical Info: {pet.medicalInfo}</p>
+                  </div>
+                )}
+                <button onClick={toggleEditPet}>
+                  {isEditingPet ? "Cancel" : "Edit Pet"}
+                </button>
+                <button onClick={() => handleDeletePet(pet.id)}>
+                  Delete Pet
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
+        <button onClick={() => setIsAddingPet(true)}>Add Pet</button>
+        <div className="pet-item">
+          {isAddingPet && (
+            <div className="add-pet-form">
+              <form onSubmit={handleAddPet}>
+                <label>Имя питомца:</label>
+                <input
+                  type="text"
+                  placeholder="Name"
+                  onChange={(e) => setPetName(e.target.value)}
+                />
+                <label>Возраст питомца:</label>
+                <input
+                  type="number"
+                  placeholder="Age"
+                  onChange={(e) => setPetAge(e.target.value)}
+                />
+                <label>Вес питомца:</label>
+                <input
+                  type="number"
+                  placeholder="Weight"
+                  onChange={(e) => setPetWeight(e.target.value)}
+                />
+                <label>Пол питомца:</label>
+                <div className="gender-selection">
+                  <div className="gender-option">
+                    <label>
+                      {" "}
+                      Мальчик
+                      <input
+                        type="radio"
+                        value="Male"
+                        checked={petGender === "Male"}
+                        onChange={() => setPetGender("Male")}
+                      />
+                    </label>
+                  </div>
+                  <div className="gender-option">
+                    <label>
+                      {" "}
+                      Девочка
+                      <input
+                        type="radio"
+                        value="Female"
+                        checked={petGender === "Female"}
+                        onChange={() => setPetGender("Female")}
+                      />
+                    </label>
+                  </div>
+                </div>
+                <label>Поведение: </label>
+                <input
+                  type="text"
+                  placeholder="Behavior"
+                  onChange={(e) => setPetBehavior(e.target.value)}
+                />
+                <label>Тип питомца:</label>
+                <input
+                  type="text"
+                  placeholder="Type"
+                  onChange={(e) => setPetType(e.target.value)}
+                />
+                <label>Порода питомца:</label>
+                <input
+                  type="text"
+                  placeholder="Breed"
+                  onChange={(e) => setPetBreed(e.target.value)}
+                />
+                <label>Расскажите о питомце</label>
+                <div className="pet-description">
+                  <input
+                    type="text"
+                    placeholder="Description"
+                    onChange={(e) => setPetDescription(e.target.value)}
+                  />
+                </div>
+                <label>Медицинская информация</label>
+                <input
+                  type="text"
+                  placeholder="Medical Info"
+                  onChange={(e) => setPetMedicalInfo(e.target.value)}
+                />
+
+                <button type="submit">Confirm Changes</button>
+                <button className="add-pet-button" onClick={toggleAddPet}>
+                  {isAddingPet ? "Cancel" : "Add Pet"}
+                </button>
+              </form>
+            </div>
           )}
         </div>
-      ))}
-      <button onClick={() => setIsAddingPet(true)}>Add Pet</button>
-      {isAddingPet && (
-        <form onSubmit={handleAddPet}>
-          <label>Name:</label>
-          <input
-            type="text"
-            value={petName}
-            onChange={(e) => setPetName(e.target.value)}
-          />
-          <label>Age:</label>
-          <input
-            type="number"
-            value={petAge}
-            onChange={(e) => setPetAge(e.target.value)}
-          />
-          <label>Weight:</label>
-          <input
-            type="number"
-            value={petWeight}
-            onChange={(e) => setPetWeight(e.target.value)}
-          />
-          <label>Gender:</label>
-          <input
-            type="text"
-            value={petGender}
-            onChange={(e) => setPetGender(e.target.value)}
-          />
-          <label>Behavior:</label>
-          <input
-            type="text"
-            value={petBehavior}
-            onChange={(e) => setPetBehavior(e.target.value)}
-          />
-          <label>Type:</label>
-          <input
-            type="text"
-            value={petType}
-            onChange={(e) => setPetType(e.target.value)}
-          />
-          <label>Breed:</label>
-          <input
-            type="text"
-            value={petBreed}
-            onChange={(e) => setPetBreed(e.target.value)}
-          />
-          <label>Description:</label>
-          <input
-            type="text"
-            value={petDescription}
-            onChange={(e) => setPetDescription(e.target.value)}
-          />
-          <label>Medical Info:</label>
-          <input
-            type="text"
-            value={petMedicalInfo}
-            onChange={(e) => setPetMedicalInfo(e.target.value)}
-          />
-          <button type="submit">Confirm</button>
-        </form>
-      )}
+      </div>
     </div>
   );
 };
