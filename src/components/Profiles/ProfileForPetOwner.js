@@ -4,7 +4,7 @@ import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
-import "../styles/ProfileForPetOwner.css";
+import "../styles/Profile.css";
 
 const Profile = () => {
   const [profile, setProfile] = useState();
@@ -476,11 +476,13 @@ const Profile = () => {
                       onChange={(e) => setPetBreed(e.target.value)}
                     />
                     <label>Description:</label>
+                    <div className="pet-description">
                     <input
                       type="text"
                       value={petDescription}
                       onChange={(e) => setPetDescription(e.target.value)}
                     />
+                    </div>
                     <label>Medical Info:</label>
                     <input
                       type="text"
@@ -490,6 +492,7 @@ const Profile = () => {
                     <button type="submit">Confirm Changes</button>
                   </form>
                 ) : (
+                  // ДОБАВИТЬ СТИЛЬ ДЛЯ ПАРАГРАФОВ
                   <div className="pet-info">
                     <p>Age: {pet.age}</p>
                     <p>Weight: {pet.weight}</p>
