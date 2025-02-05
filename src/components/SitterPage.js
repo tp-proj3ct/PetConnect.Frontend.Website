@@ -3,6 +3,7 @@ import { API_ENDPOINTS } from "../constants/constants";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
+import './styles/sitterspage.css';
 
 const SitterPage = () => {
   const userRef = useRef();

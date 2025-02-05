@@ -63,6 +63,10 @@ const Profile = () => {
     setIsAddingPet(!isAddingPet);
   };
 
+
+
+  
+
   const handleEditPet = async (e) => {
     e.preventDefault();
 
@@ -379,6 +383,8 @@ const Profile = () => {
             <button type="submit">Сохранить изменения</button>
           )}
         </form>
+
+
         {!isEditingProfile ? (
           <button onClick={() => setIsEditingProfile(true)}>
             Изменить данные
@@ -508,7 +514,7 @@ const Profile = () => {
                   {isEditingPet ? "Cancel" : "Edit Pet"}
                 </button>
                 <button onClick={() => handleDeletePet(pet.id)}>
-                  Delete Pet
+                  Удалить питомца
                 </button>
               </div>
             )}

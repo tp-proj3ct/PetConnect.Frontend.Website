@@ -36,6 +36,7 @@ const Profile = () => {
       setServiceName(service.name);
       setServiceDescription(service.description);
       setServicePrice(service.price);
+      setIsEditingService(false);
     }
   };
 
@@ -356,6 +357,7 @@ const Profile = () => {
           )}
         </form>
 
+
         {!isEditingProfile ? (
           <button onClick={() => setIsEditingProfile(true)}>
             Изменить данные
@@ -380,13 +382,13 @@ const Profile = () => {
           </form>
         )}
       </div>
+
+      {/* часть с услугами */}
       <div className="pet-list-container">
         {serviceInfo.map((service) => (
           <div key={service.id} className="pet-item">
-            <button onClick={() => handleSelectService(service)}>
-              {service.name}
-            </button>
-            {selectedService && selectedService.id === selectedService.id && (
+            <button onClick={() => handleSelectService(service)}>{service.name}</button>
+            {selectedService && selectedService.id === service.id && (
               <div className="pet-item">
                 {isEditingService ? (
                   <form className="pet-edit-form" onSubmit={handleEditService}>
@@ -394,7 +396,7 @@ const Profile = () => {
                     <input
                       type="text"
                       value={serviceName}
-                      onChange={(e) => e.target.value}
+                      onChange={(e) => setServiceName(e.target.value)}
                     />
                     <label>Описание</label>
                     <div className="pet-description">
@@ -417,6 +419,7 @@ const Profile = () => {
                     <p>Название: {service.name}</p>
                     <p>Описание: {service.description}</p>
                     <p>Цена: {service.price}</p>
+                    <p>Айди услуги: {service.id}</p>
                   </div>
                 )}
                 <button onClick={toggleEditService}>
@@ -454,7 +457,6 @@ const Profile = () => {
                   placeholder="Цена"
                   onChange={(e) => setServicePrice(e.target.value)}
                 />
-
                 <button type="submit">Подтвердить</button>
                 <button className="add-pet-button" onClick={toggleAddService}>
                   {isAddingService ? "Отменить" : "Добавить сервис"}
