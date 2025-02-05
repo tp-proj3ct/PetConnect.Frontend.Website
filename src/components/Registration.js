@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import axios from "../api/axios";
 import { Link } from "react-router-dom";
+import "../components/styles/registration.css";
 
 const REGISTER_URL = "/auth/registration";
 
@@ -72,7 +73,9 @@ const Register = () => {
         </section>
       ) : (
         <section>
-          <p ref={errRef}>{errMsg}</p>
+          <p ref={errRef} className="error-message">
+            {errMsg}
+          </p>
           <h1>Регистрация</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">Имя пользователя:</label>
@@ -85,7 +88,7 @@ const Register = () => {
               value={login}
               required
             />
-  
+
             <label htmlFor="email">Эл. почта:</label>
             <input
               type="email"
@@ -95,7 +98,7 @@ const Register = () => {
               value={email}
               required
             />
-  
+
             <label htmlFor="password">Пароль:</label>
             <input
               type="password"
@@ -104,7 +107,7 @@ const Register = () => {
               value={password}
               required
             />
-  
+
             <label htmlFor="confirm_pwd">Повторите пароль:</label>
             <input
               type="password"
@@ -113,7 +116,7 @@ const Register = () => {
               value={matchPwd}
               required
             />
-  
+
             <label htmlFor="role">Роль: </label>
             <select
               type="role"
@@ -126,7 +129,7 @@ const Register = () => {
               <option value="Сиделка">Сиделка</option>
               <option value="Хозяин">Хозяин</option>
             </select>
-  
+
             <button disabled={!login || !password || !email || !role}>
               Зарегистрироваться
             </button>

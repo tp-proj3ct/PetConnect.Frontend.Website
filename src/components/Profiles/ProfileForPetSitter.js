@@ -3,6 +3,7 @@ import { API_ENDPOINTS } from "../../constants/constants";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
+import "../styles/Profile.css";
 
 const Profile = () => {
   const [profile, setProfile] = useState();
@@ -16,6 +17,9 @@ const Profile = () => {
   const [serviceName, setServiceName] = useState("");
   const [serviceDescription, setServiceDescription] = useState("");
   const [servicePrice, setServicePrice] = useState("");
+  const [profilePictureFile, setProfilePictureFile] = useState(null);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [isEditingService, setIsEditingService] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,10 +28,24 @@ const Profile = () => {
   const { auth } = useAuth();
 
   const handleSelectService = (service) => {
-    setSelectedService(service);
-    setServiceName(service.name);
-    setServiceDescription(service.description);
-    setServicePrice(service.price);
+    if (selectedService && selectedService.id === service.id) {
+      setSelectedService(null);
+      setIsEditingService(false);
+    } else {
+      setSelectedService(service);
+      setServiceName(service.name);
+      setServiceDescription(service.description);
+      setServicePrice(service.price);
+      setIsEditingService(false);
+    }
+  };
+
+  const toggleEditService = () => {
+    setIsEditingService(!isEditingService);
+  };
+
+  const toggleAddService = () => {
+    setIsAddingService(!isAddingService);
   };
 
   const handleAddProfilePicture = async (e) => {
@@ -161,6 +179,9 @@ const Profile = () => {
     e.preventDefault();
 
     try {
+      setName("");
+      setSurname("");
+
       const payload = {
         name: name || profile.name,
         surname: surname || profile.surname,
@@ -290,117 +311,162 @@ const Profile = () => {
   }
 
   return (
-    <div>
-      <h1>User Profile</h1>
-      <div>
-        <div>
+    <div className="profile-container">
+      <div className="profile-sidebar">
+        <div className="profile-picture-section">
           {profilePic && (
             <div>
-              <h2>Profile Picture:</h2>
-              <img src={profilePic} alt="Profile" />
+              <img className="profile-photo" src={profilePic} alt="Profile" />
             </div>
           )}
 
           {profile && (
-            <div>
-              <h2>Profile info:</h2>
+            <div className="profile-info">
               <h1>
                 {profile.name} {profile.surname}
               </h1>
             </div>
           )}
-          <form onSubmit={handleAddProfilePicture}>
-            <label htmlFor="file">Изменить фото</label>
-            <input type="file" id="profilePic" accept="image/*" />
-            <button type="submit">Change</button>
-          </form>
+        </div>
+        <form onSubmit={handleAddProfilePicture}>
+          <input
+            type="file"
+            id="profilePic"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                setProfilePictureFile(file);
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                  setProfilePic(reader.result); // Сохранение результата для отображения превью
+                };
+                reader.readAsDataURL(file); // Чтение файла как Data URL
+              }
+            }}
+            style={{ display: "none" }} // Скрываем input
+          />
+          <button
+            type="button"
+            onClick={() => document.getElementById("profilePic").click()} // Открыть диалог выбора файла
+          >
+            {profilePictureFile ? "Выбрать другое" : "Добавить фото"}
+          </button>
+          {profilePictureFile && (
+            <button type="submit">Сохранить изменения</button>
+          )}
+        </form>
+
+
+        {!isEditingProfile ? (
+          <button onClick={() => setIsEditingProfile(true)}>
+            Изменить данные
+          </button>
+        ) : (
           <form onSubmit={handleEditProfile}>
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="Имя">Имя:</label>
             <input
               type="text"
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            <label htmlFor="surname">Surname:</label>
+            <label htmlFor="Фамилия">Фамилия:</label>
             <input
               type="text"
               id="surname"
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
             />
-            <button type="submit">Change</button>
+            <button type="submit">Сохранить изменения</button>
           </form>
-          <form onSubmit={handleDeleteProfile}>
-            <label>Delete your profile?</label>
-            <button type="submit">Delete my profile</button>
-          </form>
-        </div>
+        )}
       </div>
-      {serviceInfo.map((item) => (
-        <div key={item.id}>
-          <h2>Услуга: {item.name}</h2>
-          <p>Description: {item.description}</p>
-          <p>Price: {item.price}</p>
-          <button onClick={() => handleSelectService(item)}>
-            Edit Service
-          </button>
-          <button onClick={() => handleDeleteService(item.id)}>
-            Delete Service
-          </button>
-          {selectedService && selectedService.id === item.id && (
-            <form onSubmit={handleEditService}>
-              <label>Name:</label>
-              <input
-                type="text"
-                value={serviceName}
-                onChange={(e) => setServiceName(e.target.value)}
-              />
-              <label>Description:</label>
-              <input
-                type="text"
-                value={serviceDescription}
-                onChange={(e) => setServiceDescription(e.target.value)}
-              />
-              <label>Price:</label>
-              <input
-                type="number"
-                required="true"
-                value={servicePrice}
-                onChange={(e) => setServicePrice(e.target.value)}
-              />
-              <button type="submit">Confirm</button>
-            </form>
+
+      {/* часть с услугами */}
+      <div className="pet-list-container">
+        {serviceInfo.map((service) => (
+          <div key={service.id} className="pet-item">
+            <button onClick={() => handleSelectService(service)}>{service.name}</button>
+            {selectedService && selectedService.id === service.id && (
+              <div className="pet-item">
+                {isEditingService ? (
+                  <form className="pet-edit-form" onSubmit={handleEditService}>
+                    <label>Название</label>
+                    <input
+                      type="text"
+                      value={serviceName}
+                      onChange={(e) => setServiceName(e.target.value)}
+                    />
+                    <label>Описание</label>
+                    <div className="pet-description">
+                      <input
+                        type="text"
+                        value={serviceDescription}
+                        onChange={(e) => setServiceDescription(e.target.value)}
+                      />
+                    </div>
+                    <label>Цена</label>
+                    <input
+                      type="number"
+                      value={servicePrice}
+                      onChange={(e) => setServicePrice}
+                    />
+                    <button type="submit">Подтвердить изменения</button>
+                  </form>
+                ) : (
+                  <div className="pet-info">
+                    <p>Название: {service.name}</p>
+                    <p>Описание: {service.description}</p>
+                    <p>Цена: {service.price}</p>
+                    <p>Айди услуги: {service.id}</p>
+                  </div>
+                )}
+                <button onClick={toggleEditService}>
+                  {isEditingService ? "Отменить" : "Изменить услугу"}
+                </button>
+                <button onClick={() => handleDeleteService(service.id)}>
+                  Удалить сервис
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
+        <button onClick={() => setIsAddingService(true)}>Добавить сервис</button>
+        <div className="pet-item">
+          {isAddingService && (
+            <div className="add-pet-form">
+              <form onSubmit={handleAddService}>
+                <label>Название</label>
+                <input 
+                  type="text"
+                  placeholder="Название"
+                  onChange={(e) => setServiceName(e.target.value)}
+                />
+                <label>Описание</label>
+                <div className="pet-description">
+                  <input 
+                    type="text"
+                    placeholder="Описание"
+                    onChange={(e) => setServiceDescription(e.target.value)}
+                  />
+                </div>
+                <label>Цена</label>
+                <input 
+                  type="number"
+                  placeholder="Цена"
+                  onChange={(e) => setServicePrice(e.target.value)}
+                />
+                <button type="submit">Подтвердить</button>
+                <button className="add-pet-button" onClick={toggleAddService}>
+                  {isAddingService ? "Отменить" : "Добавить сервис"}
+                </button>
+              </form>
+            </div>
           )}
         </div>
-      ))}
-      <button onClick={() => setIsAddingService(true)}>Add Service</button>
-      {isAddingService && (
-        <form onSubmit={handleAddService}>
-          <label>Name:</label>
-          <input
-            type="text"
-            value={serviceName}
-            onChange={(e) => setServiceName(e.target.value)}
-          />
-          <label>Description:</label>
-          <input
-            type="text"
-            value={serviceDescription}
-            onChange={(e) => setServiceDescription(e.target.value)}
-          />
-          <label>Price:</label>
-          <input
-            type="number"
-            required="true"
-            value={servicePrice}
-            onChange={(e) => setServicePrice(e.target.value)}
-          />
-          <button type="submit">Confirm</button>
-        </form>
-      )}
+      </div>
     </div>
   );
 };
-
 export default Profile;

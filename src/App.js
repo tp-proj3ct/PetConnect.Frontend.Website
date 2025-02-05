@@ -9,10 +9,13 @@ import LinkPage from "./components/LinkPage";
 import Unauthorized from "./components/Unauthorized";
 import Admin from "./components/Admin";
 import Sitters from "./components/Sitters";
-import Profile from "./components/Profiles/Profile"; // Новый компонент для профиля
+import Profile from "./components/Profiles/Profile";
+import Footer from "./components/UI/FooterUI/Footer";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
   return (
+    <div id="root">
     <div className="App">
 
         <NavBar />
@@ -34,7 +37,13 @@ function App() {
         <Route path="admin" element={<Admin />} />
 
         <Route path="*" element={<Missing />} />
+
+        
+
       </Routes>
+
+      <Footer />
+    </div>
     </div>
   );
 }

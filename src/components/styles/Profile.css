@@ -57,10 +57,11 @@
   flex-grow: 1;
   background-color: #5ea09e;
   border-radius: 8px;
-  max-height: none;
-  min-height: none;
   min-width: 500px;
   max-width: 700px;
+  max-height: 650px;
+  min-height: 450px;
+  overflow-y: auto;
 }
 
 
@@ -69,12 +70,9 @@
   display: block;
 }
 
-
-
-
 .pet-item button {
-  display:flow-root;
-  background: none;
+  display:block;
+  background-color: #74c4c1;
   border: none;
   color: white;
   font-size: 18px;
@@ -90,6 +88,7 @@
   justify-content: center;
 }
 
+
 .pet-description input {
   display: block;
   width: 100%;
@@ -103,35 +102,44 @@
 /* ADD PET */
 
 .add-pet-form {
+  display: flex;
+  justify-content: center;
   background-color: #5ea09e;
-  padding: 20px;
+  padding: 10px;
   border-radius: 5px;
-  margin-top: 10px;
+  margin: 0 auto;
+  margin-top: 15px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.pet-add-form input {
+.add-pet-form input {
   width: 100%;
   padding: 8px;
-  margin-top: 5px;
+  margin-top: 1px;
   border: none;
-  border-radius: 4px;
+  border-radius: 15px;
 }
 
 /* EDIT PET */
 
 .pet-edit-form {
+  justify-content: center;
   background-color: #5ea09e;
-  padding: 15px;
+  padding: 10px;
   border-radius: 5px;
-  margin-top: 10px;
+  margin: 0 auto;
+  margin-top: 15px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .pet-edit-form input {
   width: 100%;
   padding: 8px;
-  margin-top: 5px;
+  margin-top: 1px;
   border: none;
-  border-radius: 4px;
+  border-radius: 15px;
 }
 
 
@@ -140,12 +148,13 @@
   display: flex;
   flex-direction: row; /* Вертикальное выравнивание элементов */
   margin-top: 5px; /* Отступ сверху, чтобы отделить от предыдущего элемента */
-  gap: 120px;
+  gap: 100px;
 }
 
 .gender-option {
   display: flex; /* Горизонтальное расположение текста и радиокнопки */
   align-items: center; /* Выравнивание по вертикали */
+  margin-left: 35px;
 }
 
 .gender-option span {
@@ -170,16 +179,21 @@ button {
   background-color: white;
   color: #5ea09e;
   border: none;
-  padding: 8px 12px;
+  padding: 10px;
   cursor: pointer;
   border-radius: 5px;
   gap: 20px;
-  display: block;
+  display: flex;
   margin: 0 auto;
   margin-top: 10px;
 }
 
 button:hover {
-  background-color: #74c4c1;
+  background-color: #5ea09e;
+}
+
+p {
+  overflow-wrap:break-word;
+  text-align: center;
 }
 

@@ -2,6 +2,7 @@ import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { API_ENDPOINTS } from "../constants/constants";
+import '../components/styles/sitters.css';
 
 const Sitters = () => {
   const allowedFileTypes = ["image/png", "image/jpeg", "image/gif"];
@@ -29,7 +30,7 @@ const Sitters = () => {
   }, []);
 
   return (
-    <div>
+    <section>
       <h1>Pet Sitters</h1>
       {petSitters.length > 0 ? (
         <ul>
@@ -39,7 +40,7 @@ const Sitters = () => {
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img
                     src={DisplayPicture(sitter.profilePic)}
-                    alt=":("
+                    alt=" "
                     style={{
                       width: "50px",
                       height: "50px",
@@ -61,8 +62,8 @@ const Sitters = () => {
                     )}
 
                     <p>{sitter.description}</p>
-                    <p>Rating: {sitter.rating}</p>
-                    <p>Experience: {sitter.experienceYears} years</p>
+                    {/* <p>Rating: {sitter.rating}</p>
+                    <p>Experience: {sitter.experienceYears} years</p> */}
                   </div>
                 </div>
               </Link>
@@ -72,7 +73,7 @@ const Sitters = () => {
       ) : (
         <p>No pet sitters available.</p>
       )}
-    </div>
+    </section>
   );
 };
 
