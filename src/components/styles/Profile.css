@@ -24,6 +24,7 @@
   min-width: 450px;
   border-radius: 8px;
   display: block;
+  overflow-y: auto;
 }
 
 .profile-sidebar input {

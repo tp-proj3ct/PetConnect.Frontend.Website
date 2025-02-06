@@ -203,6 +203,8 @@ const Profile = () => {
       setName("");
       setSurname("");
 
+      setIsEditingProfile(false);
+
       navigate(from, { replace: true });
     } catch (error) {
       console.error("Error response:", error.response);

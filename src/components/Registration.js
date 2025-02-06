@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import axios from "../api/axios";
 import { Link } from "react-router-dom";
-import "../components/styles/registration.css";
+import "./styles/Registration.module.css";
 
 const REGISTER_URL = "/auth/registration";
 

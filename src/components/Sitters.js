@@ -1,25 +1,20 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { API_ENDPOINTS } from "../constants/constants";
 import '../components/styles/sitters.css';
 
 const Sitters = () => {
-  const allowedFileTypes = ["image/png", "image/jpeg", "image/gif"];
   const [petSitters, setPetSitters] = useState([]);
-  const [petSittersPicture, setPetSittersPicture] = useState("");
 
   function DisplayPicture(pfp) {
-    let result = `data:image/jpeg;base64,${pfp}`;
-    return result;
+    return `data:image/jpeg;base64,${pfp}`;
   }
 
   useEffect(() => {
     const getPetSitters = async () => {
       try {
         const response = await axios.get(API_ENDPOINTS.PET_SITTERS);
-
-        console.log(response);
         setPetSitters(response.data);
       } catch (err) {
         console.error(err.toJSON());
@@ -31,11 +26,14 @@ const Sitters = () => {
 
   return (
     <section>
-      <h1>Pet Sitters</h1>
+      <div className="sitters-header">
+        <h1>Pet Sitters</h1>
+      </div>
+      <div className="sitters-content">
       {petSitters.length > 0 ? (
-        <ul>
+        <div className="sitters-list">
           {petSitters.map((sitter) => (
-            <li key={sitter.id}>
+            <div className="sitter-item" key={sitter.id}>
               <Link to={`/sitter/${sitter.id}`}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img
@@ -60,19 +58,19 @@ const Sitters = () => {
                         <p>Сиделка без имени</p>
                       </h2>
                     )}
-
                     <p>{sitter.description}</p>
-                    {/* <p>Rating: {sitter.rating}</p>
-                    <p>Experience: {sitter.experienceYears} years</p> */}
+                    <p>Rating: {sitter.rating}</p>
+                    <p>Experience: {sitter.experienceYears} years</p>
                   </div>
                 </div>
               </Link>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <p>No pet sitters available.</p>
       )}
+      </div>
     </section>
   );
 };
