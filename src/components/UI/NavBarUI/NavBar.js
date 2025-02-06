@@ -5,15 +5,9 @@ import AuthContext from "../../../context/AuthProvider";
 import '../../styles/navbar.css'
 
 const NavBar = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const { auth } = useAuth();
-
-  const logout = () => {
-    setAuth({});
-    navigate('/', {});
-    window.location.reload();
-  }
 
   if (auth.userRole === '') {
     return (

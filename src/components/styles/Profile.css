@@ -24,6 +24,12 @@
   min-width: 450px;
   border-radius: 8px;
   display: block;
+  overflow-y: auto;
+}
+
+.profile-addphoto-frame {
+  box-shadow: none;
+  background-color: #5ea09e;
 }
 
 .profile-sidebar input {
@@ -110,7 +116,7 @@
   margin: 0 auto;
   margin-top: 15px;
   overflow-y: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
 }
 
 .add-pet-form input {
@@ -125,7 +131,7 @@
 
 .pet-edit-form {
   justify-content: center;
-  background-color: #5ea09e;
+  background-color: #74c4c1;
   padding: 10px;
   border-radius: 5px;
   margin: 0 auto;

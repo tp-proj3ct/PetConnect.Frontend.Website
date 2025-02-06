@@ -203,6 +203,8 @@ const Profile = () => {
       setName("");
       setSurname("");
 
+      setIsEditingProfile(false);
+
       navigate(from, { replace: true });
     } catch (error) {
       console.error("Error response:", error.response);
@@ -328,7 +330,7 @@ const Profile = () => {
             </div>
           )}
         </div>
-        <form onSubmit={handleAddProfilePicture}>
+        <form className="profile-addphoto-frame" onSubmit={handleAddProfilePicture}>
           <input
             type="file"
             id="profilePic"

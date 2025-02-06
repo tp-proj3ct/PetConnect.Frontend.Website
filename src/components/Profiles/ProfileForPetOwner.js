@@ -355,7 +355,7 @@ const Profile = () => {
             </div>
           )}
         </div>
-        <form onSubmit={handleAddProfilePicture}>
+        <form className="profile-addphoto-frame" onSubmit={handleAddProfilePicture}>
           <input
             type="file"
             id="profilePic"

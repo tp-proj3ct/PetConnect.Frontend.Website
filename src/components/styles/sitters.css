@@ -1,0 +1,27 @@
+.sitters-header h1 {
+    position: relative; /* Фиксирует заголовок вверху */
+    top: 10px; /* Прижимает к верхней части */
+    margin-top: 20px;
+    background-color: white; /* Фон, чтобы заголовок не сливался с контентом */
+     /*z-index: 100; Убедитесь, что заголовок поверх других элементов */
+    padding: 10px 0; /* Отступы для заголовка */
+    /*border-bottom: 1px solid #ccc; /* Линия под заголовком */
+  }
+  
+  .sitters-content {
+    padding-top: 0px; /* Отступ сверху, чтобы контент не перекрывался заголовком */
+  }
+
+.sitters-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0px; /* Отступ между элементами */
+    overflow-y: auto;
+  }
+  
+  .sitter-item {
+    border: 5px solid #74c4c1;
+    border-radius: 50px;
+    padding: 10px;
+    margin: 10px 0; /* Отступы сверху и снизу */
+  }
