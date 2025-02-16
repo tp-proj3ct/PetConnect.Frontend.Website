@@ -1,7 +1,7 @@
 
     /* Footer styles */
   .footer {
-    position: sticky;
+    position:relative;
     width: 100%;
     bottom: 0;
     background-color: #5ea09e;
@@ -11,7 +11,7 @@
   }
   
   .footer-container {
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 0 auto;
     padding: 0 20px;
   }

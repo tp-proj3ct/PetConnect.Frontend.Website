@@ -1,0 +1,161 @@
+/* Основные стили для страницы */
+.sitter-page {
+    padding: 65px;
+    max-width: 1200px;
+    min-height: 863px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  /* Заголовок страницы */
+  .sitter-page h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Стили для блока с услугами */
+  .services-section {
+    margin-bottom: 30px;
+  }
+  
+  .services-section h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+  }
+  
+  .services-list {
+    display: block;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .service-item {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0; /* Отступы сверху и снизу */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .service-item p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Стили для блока с отзывами */
+  .reviews-section {
+    margin-bottom: 30px;
+  }
+  
+  .reviews-section h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+  }
+  
+  .reviews-list {
+    display:    block;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .review-item {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0; /* Отступы сверху и снизу */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .review-item p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Стили для формы добавления отзыва */
+  .add-review-form {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    margin: 10px auto;
+  }
+  
+  .add-review-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #2c3e50;
+  }
+  
+  .add-review-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .add-review-form button {
+    background-color: #74c4c1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .add-review-form button:hover {
+    background-color: #5aa8a5;
+  }
+  
+  /* Стили для кнопок */
+  .button {
+    background-color: #74c4c1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .button:hover {
+    background-color: #5aa8a5;
+  }
+  
+  /* Стили для сообщений об ошибках */
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .services-list, .reviews-list {
+      grid-template-columns: 1fr;
+    }
+  
+    .sitter-page h1 {
+      font-size: 2rem;
+    }
+  
+    .services-section h2, .reviews-section h2 {
+      font-size: 1.5rem;
+    }
+  }

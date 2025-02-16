@@ -3,7 +3,7 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import useAuth from "../hooks/useAuth";
 
-//TODO: create css file for home page
+//TODO
 const Home = () => {
   const { setAuth } = useContext(AuthContext);
   const navigate = useNavigate();

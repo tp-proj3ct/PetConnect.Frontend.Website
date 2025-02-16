@@ -33,6 +33,9 @@ const SitterPage = () => {
     setErrMsg("");
   }, [reviewRating, reviewComment]);
 
+  const toggleAddReview = () => {
+    setIsAddingReview(!isAddingReview)
+  }
 
 
   const handleAddReview = async (e) => {
@@ -115,49 +118,61 @@ const SitterPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="sitter-page">
       <h1>
         {profile.name} {profile.surname}
       </h1>
-  
-      {services.length ? (
-        <ul>
-          {services.map((service) => (
-            <li key={service.id}>
-              <p>Услуга: {service.name}</p>
-              <p>Описание: {service.description}</p>
-              <p>Цена: {service.price} рублей</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No services to display</p>
-      )}
-  
-      <h2>Отзывы</h2>
-      {reviews.length ? (
-        <ul>
-          {reviews.map((review) => (
-            <li key={review.id}>
-              <p>Комментарий: {review.comment}</p>
-              <p>Рейтинг: {review.rating}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Отзывов пока нет.</p>
-      )}
-  
-      {auth.userRole === '' ? (
+
+      {/* Секция с услугами */}
+      <div className="services-section">
+        <h2>Услуги</h2>
+        {services.length ? (
+          <div className="services-list">
+            {services.map((service) => (
+              <div className="service-item" key={service.id}>
+                <p>Услуга: {service.name}</p>
+                <p>Описание: {service.description}</p>
+                <p>Цена: {service.price} рублей</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No services to display</p>
+        )}
+      </div>
+
+      {/* Секция с отзывами */}
+      <div className="reviews-section">
+        <h2>Отзывы</h2>
+        {reviews.length ? (
+          <div className="reviews-list">
+            {reviews.map((review) => (
+              <div className="review-item" key={review.id}>
+                <p>Комментарий: {review.comment}</p>
+                <p>Рейтинг: {review.rating}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>Отзывов пока нет.</p>
+        )}
+      </div>
+
+      {/* Форма добавления отзыва */}
+      {auth.userRole === "" ? (
         <article>
           <p>Войдите в аккаунт, чтобы оставить отзыв</p>
-          <button onClick={() => navigate("/login")}>Войти</button>
+          <button className="button" onClick={() => navigate("/login")}>
+            Войти
+          </button>
         </article>
       ) : (
         <>
-          <button onClick={() => setIsAddingReview(true)}>Добавить отзыв</button>
+          <button className="button" onClick={() => setIsAddingReview(true)}>
+            Добавить отзыв
+          </button>
           {isAddingReview && (
-            <form onSubmit={handleAddReview}>
+            <form className="add-review-form" onSubmit={handleAddReview}>
               <label>Рейтинг: </label>
               <input
                 type="number"
@@ -170,7 +185,12 @@ const SitterPage = () => {
                 value={reviewComment}
                 onChange={(e) => setReviewComment(e.target.value)}
               />
-              <button type="submit">Отправить отзыв</button>
+              <button className="button" type="submit">
+                Отправить отзыв
+              </button>
+              <button onClick={toggleAddReview}>
+                {isAddingReview ? "Отменить" : "Отправить отзыв"}
+              </button>
             </form>
           )}
         </>
