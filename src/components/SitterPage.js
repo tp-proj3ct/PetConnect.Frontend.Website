@@ -4,10 +4,13 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import './styles/sitterspage.css';
+import Booking from "./Booking";
 
 const SitterPage = () => {
   const userRef = useRef();
   const errRef = useRef();
+
+  const [isPopUpOpen, setPopupOpen] = useState(false);
 
 
   const [profile, setProfile] = useState([]);
@@ -29,6 +32,8 @@ const SitterPage = () => {
 
 
 
+
+
   useEffect(() => {
     setErrMsg("");
   }, [reviewRating, reviewComment]);
@@ -36,7 +41,6 @@ const SitterPage = () => {
   const toggleAddReview = () => {
     setIsAddingReview(!isAddingReview)
   }
-
 
   const handleAddReview = async (e) => {
     e.preventDefault();

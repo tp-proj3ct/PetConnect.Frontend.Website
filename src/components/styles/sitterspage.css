@@ -41,6 +41,10 @@
     margin: 10px 0; /* Отступы сверху и снизу */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+
+  .service-item:hover{
+    background-color: #55555522;
+  }
   
   .service-item p {
     margin: 5px 0;

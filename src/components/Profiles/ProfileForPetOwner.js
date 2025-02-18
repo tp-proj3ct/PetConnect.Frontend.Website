@@ -6,6 +6,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import "../styles/Profile.css";
 
+
 const Profile = () => {
   const [profile, setProfile] = useState();
   const axiosPrivate = useAxiosPrivate();
@@ -500,6 +501,7 @@ const Profile = () => {
                 ) : (
                   // ДОБАВИТЬ СТИЛЬ ДЛЯ ПАРАГРАФОВ
                   <div className="pet-info">
+                    <p>Id: {pet.id}</p>
                     <p>Age: {pet.age}</p>
                     <p>Weight: {pet.weight}</p>
                     <p>Gender: {pet.gender}</p>

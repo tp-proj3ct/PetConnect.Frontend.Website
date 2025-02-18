@@ -20,4 +20,7 @@ export const API_ENDPOINTS = {
 
   //SERVICES
   SERVICE_URL: `${BASE_URL}/services`,
+
+  //BOOKINGS
+  BOOKING_URL: `${BASE_URL}/bookings`,
 };
