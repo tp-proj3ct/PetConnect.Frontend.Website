@@ -2,101 +2,101 @@
 
 /* Основные стили для страницы регистрации */
 .registrationSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #5ea09e;
-    color: white;
-    padding: 20px;
-  }
-  
-  .registrationTitle {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  .registrationForm {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 400px;
-    background-color: #74c4c1;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .registrationLabel {
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-  
-  .registrationInput,
-  .registrationSelect {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    background-color: white;
-    color: #5ea09e;
-  }
-  
-  .registrationInput::placeholder {
-    color: #5ea09e;
-  }
-  
-  .registrationButton {
-    background-color: white;
-    color: #5ea09e;
-    border: none;
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .registrationButton:hover {
-    background-color: #74c4c1;
-    color: white;
-  }
-  
-  .registrationButton:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .registrationText {
-    margin-top: 15px;
-    text-align: center;
-  }
-  
-  .registrationLink {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .registrationLink:hover {
-    text-decoration: underline;
-  }
-  
-  /* Стили для сообщения об ошибке */
-  .registrationErrorMessage {
-    color: #ff6b6b;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-  
-  /* Стили для успешной регистрации */
-  .registrationSuccessTitle {
-    color: white;
-  }
-  
-  .registrationSuccessText {
-    color: white;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #5ea09e;
+  color: white;
+  padding: 20px;
+}
+
+.registrationTitle {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.registrationForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+  background-color: #74c4c1;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.registrationLabel {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.registrationInput,
+.registrationSelect {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+  color: #5ea09e;
+}
+
+.registrationInput::placeholder {
+  color: #5ea09e;
+}
+
+.registrationButton {
+  background-color: white;
+  color: #5ea09e;
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.registrationButton:hover {
+  background-color: #74c4c1;
+  color: white;
+}
+
+.registrationButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.registrationText {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.registrationLink {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.registrationLink:hover {
+  text-decoration: underline;
+}
+
+/* Стили для сообщения об ошибке */
+.registrationErrorMessage {
+  color: #ff6b6b;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Стили для успешной регистрации */
+.registrationSuccessTitle {
+  color: white;
+}
+
+.registrationSuccessText {
+  color: white;
+}

@@ -1,0 +1,121 @@
+/* Центрирование модального окна */
+.booking-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 450px;
+    z-index: 1001;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Затемнение заднего фона */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+/* Заголовок */
+.booking-container h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+/* Стили для текста */
+.booking-container p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+/* Стили для select */
+.booking-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    font-size: 16px;
+    transition: border 0.3s ease-in-out;
+}
+
+.booking-container select:focus {
+    border: 2px solid #007bff;
+    outline: none;
+}
+
+/* Кнопки */
+.confirm-button, .cancel-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+/* Кнопка подтверждения */
+.confirm-button {
+    background: #28a745;
+    color: #fff;
+}
+
+.confirm-button:hover {
+    background: #218838;
+}
+
+/* Кнопка отмены */
+.cancel-button {
+    background: #dc3545;
+    color: #fff;
+}
+
+.cancel-button:hover {
+    background: #c82333;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -55%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Изменения для выравнивания питомцев и чекбоксов */
+.pet-selection {
+    display: flex;
+    flex-direction: column;
+}
+
+.pet-option {
+    display: flex;
+    justify-content: center; /* Имя питомца слева, чекбокс справа */
+    align-items: center; /* Выравнивание по вертикали */
+    margin-bottom: 10px;
+}
+
+.pet-option label {
+    margin-right: 10px; /* Отступ справа, чтобы расстояние было между именем питомца и чекбоксом */
+    font-size: 16px;
+}

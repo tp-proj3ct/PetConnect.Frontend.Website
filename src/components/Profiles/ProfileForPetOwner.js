@@ -499,7 +499,6 @@ const Profile = () => {
                     <button type="submit">Confirm Changes</button>
                   </form>
                 ) : (
-                  // ДОБАВИТЬ СТИЛЬ ДЛЯ ПАРАГРАФОВ
                   <div className="pet-info">
                     <p>Id: {pet.id}</p>
                     <p>Age: {pet.age}</p>

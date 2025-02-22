@@ -117,3 +117,75 @@ section > h1 {
 section > p {
   color: black;
 }
+
+/* Стили для textarea */
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #74c4c1;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+  color: #5ea09e;
+  resize: vertical;
+  min-height: 100px;
+}
+
+textarea::placeholder {
+  color: #5ea09e;
+}
+
+textarea:focus {
+  outline: none;
+  border: 2px solid #74c4c1;
+}
+
+/* Стили для чекбокса */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+/* Стили для input[type="text"] */
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #74c4c1;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+  color: #5ea09e;
+}
+
+input[type="text"]::placeholder {
+  color: #5ea09e;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border: 2px solid #74c4c1;
+}
+
+input[type="checkbox"] {
+  display:flex;
+  float:right;
+  width: 18px;
+  height: 18px;
+  accent-color: #74c4c1;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #5ea09e;
+  border: 2px solid #5ea09e;
+}
+
+/* Стили для label чекбокса */
+.checkbox-container label {
+  font-size: 1rem;
+  color: #000000;
+  cursor: pointer;
+}
+

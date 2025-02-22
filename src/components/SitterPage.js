@@ -12,7 +12,7 @@ const SitterPage = () => {
 
   const [isPopUpOpen, setPopupOpen] = useState(false);
 
-
+  const [selectedService, setSelectedService] = useState(null);
   const [profile, setProfile] = useState([]);
   const [services, setServices] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -67,6 +67,14 @@ const SitterPage = () => {
       console.error(err.response);
     }
   }
+
+  const handleServiceClick = (service) => {
+    setSelectedService(service);
+  };
+
+  const closeBookingModal = () => {
+    setSelectedService(null);
+  };
 
     useEffect (() => {
     let isMounted = true;
@@ -133,7 +141,7 @@ const SitterPage = () => {
         {services.length ? (
           <div className="services-list">
             {services.map((service) => (
-              <div className="service-item" key={service.id}>
+              <div className="service-item" key={service.id} onClick={() => handleServiceClick(service)}>
                 <p>Услуга: {service.name}</p>
                 <p>Описание: {service.description}</p>
                 <p>Цена: {service.price} рублей</p>
@@ -144,6 +152,14 @@ const SitterPage = () => {
           <p>No services to display</p>
         )}
       </div>
+
+      {selectedService && (
+        <div className="modal-overlay full-screen" onClick={closeBookingModal}>
+          <div className="modal-content centered" onClick={(e) => e.stopPropagation()}>
+            <Booking service={selectedService} sitter={profile} closeBooking={closeBookingModal} />
+          </div>
+        </div>
+      )}
 
       {/* Секция с отзывами */}
       <div className="reviews-section">
