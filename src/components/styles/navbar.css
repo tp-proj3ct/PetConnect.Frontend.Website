@@ -3,7 +3,7 @@
     background-color: #5ea09e;
     overflow: hidden;
     top: 0;
-    position: fixed;
+    position: relative;
     width: 100%;
     z-index: 3;
   }

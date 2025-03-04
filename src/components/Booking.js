@@ -6,8 +6,6 @@ import "./styles/booking.css"
 import { axiosPrivate } from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
-// TODO
-
 
 
 const Booking = ({ service, sitter, closeBooking }) => {
@@ -22,7 +20,6 @@ const Booking = ({ service, sitter, closeBooking }) => {
 
     const {auth} = useAuth();
     const axiosPrivate = useAxiosPrivate();
-    console.log(JSON.stringify(auth.userRole));
 
     const navigate = useNavigate();
 
@@ -35,8 +32,6 @@ const Booking = ({ service, sitter, closeBooking }) => {
                 const response = await axiosPrivate.get(API_ENDPOINTS.PETS_URL, {
                     signal: controller.signal,
                 });
-
-                console.log("Pet data", response.data);
                 if (isMounted) {
                     setPetInfo(response.data);
                   }
@@ -77,7 +72,6 @@ const Booking = ({ service, sitter, closeBooking }) => {
     
         try {
           const response = await axiosPrivate.post(API_ENDPOINTS.BOOKING_URL, payload);
-          console.log("Booking successful", response.data);
           alert("Бронирование подтверждено!");
           closeBooking();
         } catch (err) {

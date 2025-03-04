@@ -27,7 +27,7 @@ const Sitters = () => {
   return (
     <section>
       <div className="sitters-header">
-        <h1>Pet Sitters</h1>
+        <h1>Сиделки</h1>
       </div>
       <div className="sitters-content">
       {petSitters.length > 0 ? (
@@ -40,8 +40,8 @@ const Sitters = () => {
                     src={DisplayPicture(sitter.profilePic)}
                     alt=" "
                     style={{
-                      width: "50px",
-                      height: "50px",
+                      width: "100px",
+                      height: "100px",
                       borderRadius: "50%",
                       marginRight: "10px",
                     }}
@@ -58,9 +58,7 @@ const Sitters = () => {
                         <p>Сиделка без имени</p>
                       </h2>
                     )}
-                    <p>{sitter.description}</p>
-                    <p>Rating: {sitter.rating}</p>
-                    <p>Experience: {sitter.experienceYears} years</p>
+                    <p style={{color: "#333", opacity: "50%"}}>Нажмите, чтобы перейти к профилю сиделки</p>
                   </div>
                 </div>
               </Link>

@@ -7,7 +7,6 @@ import Unauthorized from "./Unauthorized";
 const Admin = () => {
 
   const { auth } = useAuth();
-  console.log(JSON.stringify(auth.userRole));
 
  if (auth.userRole === 'Admin') {
     return (

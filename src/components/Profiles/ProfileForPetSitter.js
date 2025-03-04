@@ -5,6 +5,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import "../styles/Profile.css";
 
+//TODO: Отображение услуг покомпонентно
+
 const Profile = () => {
   const [profile, setProfile] = useState();
   const axiosPrivate = useAxiosPrivate();
@@ -98,7 +100,6 @@ const Profile = () => {
         API_ENDPOINTS.SERVICE_URL,
         payload
       );
-      console.log("Response: ", response.data);
 
       setServiceInfo([...serviceInfo, response.data]);
 
@@ -129,13 +130,11 @@ const Profile = () => {
         price: servicePrice,
       };
 
-      console.log("Payload: ", payload);
 
       const response = await axiosPrivate.put(
         `${API_ENDPOINTS.SERVICE_URL}/${selectedService.id}`,
         payload
       );
-      console.log("Response: ", response.data);
 
       setServiceInfo((prevServiceInfo) =>
         prevServiceInfo.map((service) =>
@@ -162,7 +161,6 @@ const Profile = () => {
       const response = await axiosPrivate.delete(
         `${API_ENDPOINTS.SERVICE_URL}/${serviceId}`
       );
-      console.log("Delete service response: ", response.data);
 
       setServiceInfo(serviceInfo.filter((service) => service.id !== serviceId));
       if (selectedService && selectedService.id === serviceId) {
@@ -186,13 +184,11 @@ const Profile = () => {
         name: name || profile.name,
         surname: surname || profile.surname,
       };
-      console.log("Sending payload:", payload);
 
       const response = await axiosPrivate.put(
         API_ENDPOINTS.PROFILE_URL,
         payload
       );
-      console.log("Response:", response.data);
 
       setProfile((prev) => ({
         ...prev,
@@ -226,7 +222,6 @@ const Profile = () => {
 
     try {
       const response = await axiosPrivate.delete(API_ENDPOINTS.USER_URL);
-      console.log("Response: ", response.data);
       navigate("/", { replace: true });
     } catch (error) {
       console.error(error);
@@ -269,8 +264,6 @@ const Profile = () => {
         const response = await axiosPrivate.get(API_ENDPOINTS.PROFILE_URL, {
           signal: controller.signal,
         });
-
-        console.log("User data: ", response.data);
         if (isMounted) {
           setProfile(response.data);
           setName(response.data.name);
@@ -286,8 +279,6 @@ const Profile = () => {
         const response = await axiosPrivate.get(API_ENDPOINTS.SERVICE_URL, {
           signal: controller.signal,
         });
-
-        console.log("Service data", response.data);
         isMounted && setServiceInfo(response.data);
       } catch (err) {
         console.error(err);

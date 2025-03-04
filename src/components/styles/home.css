@@ -1,0 +1,97 @@
+/* Общие стили для главной страницы */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Стили для баннера */
+.banner {
+    position: relative;
+    width: 100%;
+    max-width: 1800px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.main_photo {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(90%);
+}
+
+/* Белый квадрат с текстом на фото */
+.banner-content {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 400px;
+    text-align: left;
+}
+
+.banner-content h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.banner-content p {
+    font-size: 16px;
+    text-align: left;
+    color: #555;
+    margin: 10px 0;
+}
+
+.find-sitter-btn {
+    background: #74c4c1;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease-in-out;
+    width: 100%;
+}
+
+.find-sitter-btn:hover {
+    background: #5ea09e;
+}
+
+/* Основная информация */
+.info-section {
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    gap: 20px;
+    max-width: 1200px;
+}
+
+.info-box {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.info-box h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    font-size: 14px;
+    color: #555;
+}

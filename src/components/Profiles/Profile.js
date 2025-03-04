@@ -9,7 +9,6 @@ import Admin from '../Admin';
 
 const Profile = () => {
   const { auth } = useAuth();
-  console.log(JSON.stringify(auth.userRole));
 
   if (auth.userRole === 'PetOwner') {
     return <ProfileForPetOwner />;

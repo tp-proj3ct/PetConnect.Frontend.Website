@@ -7,6 +7,8 @@ import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import "../styles/Profile.css";
 
 
+//TODO: отображение питомцев покомпонентно
+
 const Profile = () => {
   const [profile, setProfile] = useState();
   const axiosPrivate = useAxiosPrivate();
@@ -88,13 +90,11 @@ const Profile = () => {
         medicalInfo: petMedicalInfo,
       };
 
-      console.log("Payload", payload);
 
       const response = await axiosPrivate.put(
         `${API_ENDPOINTS.PETS_URL}/${selectedPet.id}`,
         payload
       );
-      console.log("Response:", response.data);
 
       setPetInfo((prevPetInfo) =>
         prevPetInfo.map((pet) =>
@@ -138,7 +138,6 @@ const Profile = () => {
       };
 
       const response = await axiosPrivate.post(API_ENDPOINTS.PETS_URL, payload);
-      console.log("Response:", response.data);
 
       setPetInfo([...petInfo, response.data]);
 
@@ -166,7 +165,6 @@ const Profile = () => {
       const response = await axiosPrivate.delete(
         `${API_ENDPOINTS.PETS_URL}/${petId}`
       );
-      console.log("Delete pet response", response.data);
 
       setPetInfo(petInfo.filter((pet) => pet.id !== petId));
       if (selectedPet && selectedPet.id === petId) {
@@ -183,7 +181,7 @@ const Profile = () => {
 
     try {
       const response = await axiosPrivate.delete(API_ENDPOINTS.USER_URL);
-      console.log("Response:", response.data);
+
       navigate("/", { replace: true });
     } catch (error) {
       console.error(error);
@@ -201,13 +199,13 @@ const Profile = () => {
         name: name || profile.name,
         surname: surname || profile.surname,
       };
-      console.log("Sending payload:", payload);
+
 
       const response = await axiosPrivate.put(
         API_ENDPOINTS.PROFILE_URL,
         payload
       );
-      console.log("Response:", response.data);
+
 
       setProfile((prev) => ({
         ...prev,
@@ -306,8 +304,6 @@ const Profile = () => {
         const response = await axiosPrivate.get(API_ENDPOINTS.PROFILE_URL, {
           signal: controller.signal,
         });
-
-        console.log("User data: ", response.data);
         if (isMounted) {
           setProfile(response.data);
           setName(response.data.name);
@@ -323,8 +319,6 @@ const Profile = () => {
         const response = await axiosPrivate.get(API_ENDPOINTS.PETS_URL, {
           signal: controller.signal,
         });
-
-        console.log("Pet data", response.data);
         isMounted && setPetInfo(response.data);
       } catch (err) {
         console.error(err);
@@ -500,15 +494,13 @@ const Profile = () => {
                   </form>
                 ) : (
                   <div className="pet-info">
-                    <p>Id: {pet.id}</p>
-                    <p>Age: {pet.age}</p>
-                    <p>Weight: {pet.weight}</p>
-                    <p>Gender: {pet.gender}</p>
-                    <p>Behavior: {pet.behavior}</p>
-                    <p>Type: {pet.type}</p>
-                    <p>Breed: {pet.breed}</p>
-                    <p>Description: {pet.description}</p>
-                    <p>Medical Info: {pet.medicalInfo}</p>
+                    <p>Возраст: {pet.age}</p>
+                    <p>Вес: {pet.weight}</p>
+                    <p>Пол: {pet.gender}</p>
+                    <p>Поведение: {pet.behavior}</p>
+                    <p>Порода: {pet.breed}</p>
+                    <p>Описание: {pet.description}</p>
+                    <p>Медицинская информация: {pet.medicalInfo}</p>
                   </div>
                 )}
                 <button onClick={toggleEditPet}>

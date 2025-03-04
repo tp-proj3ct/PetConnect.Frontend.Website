@@ -30,8 +30,6 @@ const Login = () => {
 
     try {
       const payload = { login, password };
-      console.log("Sending payload:", payload);
-
       const response = await axiosPrivate.post(
         API_ENDPOINTS.LOGIN_URL,
         JSON.stringify(payload),
@@ -40,8 +38,6 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log("Response:", response.data);
-
       const accessToken = response.data?.value;
       const [header, pload, signature] = accessToken.split(".");
       const decodedPload = atob(pload);
@@ -52,13 +48,10 @@ const Login = () => {
         parsedPload[
           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
         ];
-
-        
-      console.log("Role: ", userRole);
       setAuth({ login, password, accessToken, userRole});
       setLogin("");
       setPassword("");
-      navigate(from, { replace: true });
+      window.history.go(-1);
     } catch (error) {
       console.error("Error response:", error.response);
       if (!error.response) {

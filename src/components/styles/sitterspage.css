@@ -6,6 +6,20 @@
     margin: 0 auto;
     font-family: Arial, sans-serif;
     color: #333;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .profile-photo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 750px;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(90%);
+    padding: 10px;
   }
   
   /* Заголовок страницы */
@@ -19,12 +33,13 @@
   /* Стили для блока с услугами */
   .services-section {
     margin-bottom: 30px;
+    padding: 20px;
   }
   
   .services-section h2 {
     font-size: 2rem;
     color: #2c3e50;
-    margin-bottom: 15px;
+    margin-bottom: 50px;
   }
   
   .services-list {
@@ -48,19 +63,20 @@
   
   .service-item p {
     margin: 5px 0;
-    font-size: 1rem;
-    color: #555;
+    font-size: 20px;
+    color: #000000;
   }
   
   /* Стили для блока с отзывами */
   .reviews-section {
+    margin-top: 80px;
     margin-bottom: 30px;
   }
   
   .reviews-section h2 {
     font-size: 2rem;
-    color: #2c3e50;
-    margin-bottom: 15px;
+    color: #000000;
+    margin-bottom: 50px;
   }
   
   .reviews-list {
@@ -80,8 +96,8 @@
   
   .review-item p {
     margin: 5px 0;
-    font-size: 1rem;
-    color: #555;
+    font-size: 20px;
+    color: #000000;
   }
   
   /* Стили для формы добавления отзыва */

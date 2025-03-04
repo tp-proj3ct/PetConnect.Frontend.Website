@@ -28,10 +28,11 @@ const SitterPage = () => {
   const from = location.state?.from?.pathname || `/sitter/${id}`;
   const [errorMessage, setErrorMessage] = useState("");
   const { auth } = useAuth();
-  console.log(JSON.stringify(auth.userRole));
 
 
-
+  function DisplayPicture(pfp) {
+    return `data:image/jpeg;base64,${pfp}`;
+  }
 
 
   useEffect(() => {
@@ -51,7 +52,6 @@ const SitterPage = () => {
       };
 
       const response = await axiosPrivate.post(`${API_ENDPOINTS.PET_SITTERS}/${id}/reviews`, payload);
-      console.log(response.data);
 
 
 
@@ -85,7 +85,6 @@ const SitterPage = () => {
         const response = await axiosPrivate.get(`${API_ENDPOINTS.PET_SITTERS}/${id}`,
           {signal: controller.signal,}
         );
-        console.log(response.data);
         isMounted && setProfile(response.data);
     } catch (err) {
       console.error(err);
@@ -97,7 +96,6 @@ const SitterPage = () => {
       const response = await axiosPrivate.get(`${API_ENDPOINTS.PET_SITTERS}/${id}/reviews`,
         {signal: controller.signal}
       )
-      console.log(response.data);
       isMounted && setReviews(response.data);
       
     } catch(err){
@@ -110,7 +108,6 @@ const SitterPage = () => {
         const response = await axiosPrivate.get(`${API_ENDPOINTS.PET_SITTERS}/${id}/services`, 
           {signal: controller.signal,}
         )
-        console.log(response.data);
         
         isMounted && setServices(response.data);
         
@@ -131,6 +128,13 @@ const SitterPage = () => {
 
   return (
     <div className="sitter-page">
+      <div style={{ display: "flex", alignItems: "center" }}>
+                  <img
+                    src={DisplayPicture(profile.profilePic)}
+                    alt=" "
+                    className="profile-photo"
+                  />
+      </div>
       <h1>
         {profile.name} {profile.surname}
       </h1>
