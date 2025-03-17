@@ -1,0 +1,52 @@
+.linkpage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 20px;
+  }
+  
+  .linkpage-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .linkpage-text {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .linkpage-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .linkpage-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+    background-color: #28a745;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  
+  .linkpage-button:hover {
+    background-color: #218838;
+  }
+  
+  .linkpage-home {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #007bff;
+  }

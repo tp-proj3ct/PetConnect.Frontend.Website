@@ -1,6 +1,7 @@
 import { Link, Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { useState } from "react";
+import "./styles/linkpage.css";
 
 const LinkPage = () => {
   const { auth } = useAuth();
@@ -19,41 +20,23 @@ const LinkPage = () => {
   }
 
   return (
-    <section>
-      <h1>Links</h1>
-      <br />
-      <Link to="#" onClick={() => handleNavigation("/login")}>
-        Login
-      </Link>
-      <Link to="#" onClick={() => handleNavigation("/registration")}>
-        Register
-      </Link>
-      <Link to="/">Home</Link>
-      <br />
+    <section className="linkpage-container">
+      <h1 className="linkpage-title">Навигация</h1>
+      <p className="linkpage-text">Выберите нужный раздел:</p>
+
+      <div className="linkpage-links">
+        <Link to="#" onClick={() => handleNavigation("/login")} className="linkpage-button">
+          Вход
+        </Link>
+        <Link to="#" onClick={() => handleNavigation("/registration")} className="linkpage-button">
+          Регистрация
+        </Link>
+        <Link to="/" className="linkpage-home">
+          Вернуться на главную
+        </Link>
+      </div>
     </section>
   );
 };
 
 export default LinkPage;
-
-// import { Link } from "react-router-dom"
-// import {useAuth} from "../hooks/useAuth"
-
-// const LinkPage = () => {
-//     return (
-//         <section>
-//             <h1>Links</h1>
-//             <br />
-//             <h2>Public</h2>
-//             <Link to="/login">Login</Link>
-//             <Link to="/registration">Register</Link>
-//             <br />
-//             <h2>Private</h2>
-//             <Link to="/">Home</Link>
-//             {/* <Link to="/editor">Editors Page</Link>
-//             <Link to="/admin">Admin Page</Link> */}
-//         </section>
-//     )
-// }
-
-// export default LinkPage
