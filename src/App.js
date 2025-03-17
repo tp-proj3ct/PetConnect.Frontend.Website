@@ -15,6 +15,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
   return (
+    <div className="app-container">
+      <div className="content">
     <div id="root">
     <div className="App">
 
@@ -43,6 +45,8 @@ function App() {
       </Routes>
 
       <Footer />  
+    </div>
+    </div>
     </div>
     </div>
   );

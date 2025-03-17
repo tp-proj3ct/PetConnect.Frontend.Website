@@ -5,7 +5,10 @@
   scrollbar-width: none;
 }
 
-html {
+html, body, #root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   font-family: "Nunito", sans-serif;
   font-size: 18px;
   color: #000000;
@@ -14,6 +17,7 @@ html {
 }
 
 section {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -188,5 +192,15 @@ input[type="checkbox"]:checked {
   font-size: 1rem;
   color: #000000;
   cursor: pointer;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
 }
 
