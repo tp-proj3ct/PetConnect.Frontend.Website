@@ -51,7 +51,7 @@ const Login = () => {
       setAuth({ login, password, accessToken, userRole});
       setLogin("");
       setPassword("");
-      window.history.go(-1);
+      navigate("/profile");
     } catch (error) {
       console.error("Error response:", error.response);
       if (!error.response) {

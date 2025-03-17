@@ -6,7 +6,6 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import "../styles/Profile.css";
 
-
 //TODO: отображение питомцев покомпонентно
 
 const Profile = () => {
@@ -66,10 +65,6 @@ const Profile = () => {
     setIsAddingPet(!isAddingPet);
   };
 
-
-
-  
-
   const handleEditPet = async (e) => {
     e.preventDefault();
 
@@ -89,7 +84,6 @@ const Profile = () => {
         description: petDescription,
         medicalInfo: petMedicalInfo,
       };
-
 
       const response = await axiosPrivate.put(
         `${API_ENDPOINTS.PETS_URL}/${selectedPet.id}`,
@@ -200,12 +194,10 @@ const Profile = () => {
         surname: surname || profile.surname,
       };
 
-
       const response = await axiosPrivate.put(
         API_ENDPOINTS.PROFILE_URL,
         payload
       );
-
 
       setProfile((prev) => ({
         ...prev,
@@ -350,7 +342,10 @@ const Profile = () => {
             </div>
           )}
         </div>
-        <form className="profile-addphoto-frame" onSubmit={handleAddProfilePicture}>
+        <form
+          className="profile-addphoto-frame"
+          onSubmit={handleAddProfilePicture}
+        >
           <input
             type="file"
             id="profilePic"
@@ -378,7 +373,6 @@ const Profile = () => {
             <button type="submit">Сохранить изменения</button>
           )}
         </form>
-
 
         {!isEditingProfile ? (
           <button onClick={() => setIsEditingProfile(true)}>
@@ -458,39 +452,39 @@ const Profile = () => {
                         </label>
                       </div>
                     </div>
-                    <label>Behavior:</label>
+                    <label>Поведение:</label>
                     <input
                       type="text"
                       value={petBehavior}
                       onChange={(e) => setPetBehavior(e.target.value)}
                     />
-                    <label>Type:</label>
+                    <label>Тип:</label>
                     <input
                       type="text"
                       value={petType}
                       onChange={(e) => setPetType(e.target.value)}
                     />
-                    <label>Breed:</label>
+                    <label>Порода:</label>
                     <input
                       type="text"
                       value={petBreed}
                       onChange={(e) => setPetBreed(e.target.value)}
                     />
-                    <label>Description:</label>
+                    <label>Описание:</label>
                     <div className="pet-description">
-                    <input
-                      type="text"
-                      value={petDescription}
-                      onChange={(e) => setPetDescription(e.target.value)}
-                    />
+                      <input
+                        type="text"
+                        value={petDescription}
+                        onChange={(e) => setPetDescription(e.target.value)}
+                      />
                     </div>
-                    <label>Medical Info:</label>
+                    <label>Медицинская информация:</label>
                     <input
                       type="text"
                       value={petMedicalInfo}
                       onChange={(e) => setPetMedicalInfo(e.target.value)}
                     />
-                    <button type="submit">Confirm Changes</button>
+                    <button type="submit">Подтвердить изменения</button>
                   </form>
                 ) : (
                   <div className="pet-info">
@@ -504,7 +498,7 @@ const Profile = () => {
                   </div>
                 )}
                 <button onClick={toggleEditPet}>
-                  {isEditingPet ? "Cancel" : "Edit Pet"}
+                  {isEditingPet ? "Отмена" : "Изменить данные"}
                 </button>
                 <button onClick={() => handleDeletePet(pet.id)}>
                   Удалить питомца
@@ -513,7 +507,7 @@ const Profile = () => {
             )}
           </div>
         ))}
-        <button onClick={() => setIsAddingPet(true)}>Add Pet</button>
+        <button onClick={() => setIsAddingPet(true)}>Добавить питомца</button>
         <div className="pet-item">
           {isAddingPet && (
             <div className="add-pet-form">
@@ -596,9 +590,9 @@ const Profile = () => {
                   onChange={(e) => setPetMedicalInfo(e.target.value)}
                 />
 
-                <button type="submit">Confirm Changes</button>
+                <button type="submit">Подтвердить изменения</button>
                 <button className="add-pet-button" onClick={toggleAddPet}>
-                  {isAddingPet ? "Cancel" : "Add Pet"}
+                  {isAddingPet ? "Отмена" : "Добавить питомца"}
                 </button>
               </form>
             </div>

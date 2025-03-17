@@ -412,20 +412,19 @@ const Profile = () => {
                     <p>Название: {service.name}</p>
                     <p>Описание: {service.description}</p>
                     <p>Цена: {service.price}</p>
-                    <p>Айди услуги: {service.id}</p>
                   </div>
                 )}
                 <button onClick={toggleEditService}>
                   {isEditingService ? "Отменить" : "Изменить услугу"}
                 </button>
                 <button onClick={() => handleDeleteService(service.id)}>
-                  Удалить сервис
+                  Удалить услугу
                 </button>
               </div>
             )}
           </div>
         ))}
-        <button onClick={() => setIsAddingService(true)}>Добавить сервис</button>
+        <button onClick={() => setIsAddingService(true)}>Добавить услугу</button>
         <div className="pet-item">
           {isAddingService && (
             <div className="add-pet-form">
@@ -452,7 +451,7 @@ const Profile = () => {
                 />
                 <button type="submit">Подтвердить</button>
                 <button className="add-pet-button" onClick={toggleAddService}>
-                  {isAddingService ? "Отменить" : "Добавить сервис"}
+                  {isAddingService ? "Отменить" : "Добавить услугу"}
                 </button>
               </form>
             </div>
